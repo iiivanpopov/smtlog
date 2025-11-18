@@ -7,8 +7,8 @@ Bun.build({
   sourcemap: config.env.development ? 'linked' : 'none',
   naming: 'index.js',
   define: {
-    'process.env.NODE_ENV': `"${config.env.node ?? 'production'}"`,
-    'import.meta.env.NODE_ENV': `"${config.env.node ?? 'production'}"`,
+    'process.env.NODE_ENV': `"${config.env.node}"`,
+    'import.meta.env.NODE_ENV': `"${config.env.node}"`,
   },
   target: 'bun',
   format: 'esm',
