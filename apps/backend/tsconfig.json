@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "moduleDetection": "force",
+    "baseUrl": "/",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": { "@/*": ["src/*"] },
+    "types": ["bun"],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmit": true,
+    "esModuleInterop": false,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
+  }
+}
