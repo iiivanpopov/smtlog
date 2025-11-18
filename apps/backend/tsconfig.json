@@ -2,10 +2,10 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "moduleDetection": "force",
-    "baseUrl": "/",
+    "baseUrl": "./",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "paths": { "@/*": ["src/*"] },
+    "paths": { "@/*": ["./src/*"] },
     "types": ["bun"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
