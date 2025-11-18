@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ebe2e724-e887-416b-86e0-7d722f3fe14e",
+  "id": "fc04a649-fcae-4018-8718-c1eb42050e52",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "sessions": {
@@ -38,6 +38,13 @@
         }
       },
       "indexes": {
+        "sessions_user_id_unique": {
+          "name": "sessions_user_id_unique",
+          "columns": [
+            "user_id"
+          ],
+          "isUnique": true
+        },
         "sessions_token_unique": {
           "name": "sessions_token_unique",
           "columns": [

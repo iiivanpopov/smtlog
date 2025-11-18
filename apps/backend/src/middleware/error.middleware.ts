@@ -10,6 +10,7 @@ export function errorMiddleware(): ErrorHandler {
     if (err instanceof HTTPException) {
       return c.json({
         message: err.message,
+        success: false,
         stack,
       }, err.status)
     }
@@ -18,6 +19,7 @@ export function errorMiddleware(): ErrorHandler {
 
     return c.json({
       message: 'Internal Server Error',
+      success: false,
       stack,
     }, 500)
   }

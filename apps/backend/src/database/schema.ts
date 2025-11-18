@@ -1,5 +1,5 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm'
-import { relations, sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const usersTable = sqliteTable('users', {
@@ -19,6 +19,7 @@ export const sessionsTable = sqliteTable('sessions', {
   id: int().primaryKey({ autoIncrement: true }),
   userId: int('user_id')
     .notNull()
+    .unique()
     .references(() => usersTable.id, { onDelete: 'cascade' }),
   token: text().notNull().unique(),
   createdAt: int('created_at', { mode: 'timestamp' })
@@ -28,14 +29,3 @@ export const sessionsTable = sqliteTable('sessions', {
 
 export type Session = InferSelectModel<typeof sessionsTable>
 export type NewSession = InferInsertModel<typeof sessionsTable>
-
-export const usersRelations = relations(usersTable, ({ many }) => ({
-  sessions: many(sessionsTable),
-}))
-
-export const sessionsRelations = relations(sessionsTable, ({ one }) => ({
-  user: one(usersTable, {
-    fields: [sessionsTable.userId],
-    references: [usersTable.id],
-  }),
-}))
