@@ -7,6 +7,6 @@ export default antfu({
   imports: true,
   yaml: true,
   formatters: true,
-  ignores: ['drizzle'],
+  ignores: ['**/drizzle'],
   rules: { 'antfu/no-top-level-await': 'off' },
 })

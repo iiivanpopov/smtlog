@@ -2,3 +2,4 @@ dist
 .vscode
 .env
 node_modules
+database.sqlite
