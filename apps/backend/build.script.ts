@@ -10,4 +10,6 @@ Bun.build({
     'process.env.NODE_ENV': `"${config.env.node ?? 'production'}"`,
     'import.meta.env.NODE_ENV': `"${config.env.node ?? 'production'}"`,
   },
+  target: 'bun',
+  format: 'esm',
 })
