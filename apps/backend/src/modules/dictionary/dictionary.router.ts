@@ -1,4 +1,5 @@
-import { factory } from '@/lib'
+import { config } from '@/config'
+import { factory, withCache } from '@/lib'
 import { sessionMiddleware } from '@/middleware'
 import { wrapSuccess } from '@/shared'
 import { getDictionary } from './dictionary.service'
@@ -10,9 +11,9 @@ dictionaryRouter.use(sessionMiddleware())
 dictionaryRouter.get(
   '/',
   async (c) => {
-    const data = await getDictionary()
+    const dictionary = await withCache(config.cache.dictionary, getDictionary, 5 * 60)
 
-    return c.json(wrapSuccess(data))
+    return c.json(wrapSuccess(dictionary))
   },
 )
 
