@@ -1,10 +1,9 @@
-import { Hono } from 'hono'
 import { cors as corsMiddleware } from 'hono/cors'
+import { factory } from '@/lib'
 import { errorMiddleware, loggerMiddleware } from '@/middleware'
 import { router } from './router'
-import '@/database'
 
-const app = new Hono()
+const app = factory.createApp()
 
 app.use(corsMiddleware())
 app.use(loggerMiddleware())
