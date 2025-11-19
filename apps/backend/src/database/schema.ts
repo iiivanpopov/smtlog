@@ -13,6 +13,8 @@ export const usersTable = sqliteTable('users', {
 })
 
 export type User = InferSelectModel<typeof usersTable>
+export type UserRole = User['role']
+export type UserDTO = Omit<User, 'code'>
 export type NewUser = InferInsertModel<typeof usersTable>
 
 export function toUser(user: User): Omit<User, 'code'> {
@@ -38,3 +40,12 @@ export const sessionsTable = sqliteTable('sessions', {
 
 export type Session = InferSelectModel<typeof sessionsTable>
 export type NewSession = InferInsertModel<typeof sessionsTable>
+
+export const settingsTable = sqliteTable('settings', {
+  id: int().primaryKey({ autoIncrement: true }),
+  key: text().notNull().unique(),
+  value: text().notNull(),
+})
+
+export type Setting = InferSelectModel<typeof settingsTable>
+export type NewSetting = InferInsertModel<typeof settingsTable>

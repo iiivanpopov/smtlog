@@ -1,2 +1,2 @@
-export type { User } from '@/database/schema'
-export * from '@/modules/auth/schemas'
+export type { UserDTO, UserRole } from '@/database'
+export type * from '@/modules/auth/schemas'

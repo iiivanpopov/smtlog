@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { codeValidator, nameValidator } from '@/shared'
+import { userCodeValidator, userNameValidator } from '@/shared'
 
 export const RegisterSchema = z.object({
-  name: nameValidator,
-  code: codeValidator,
+  name: userNameValidator,
+  code: userCodeValidator,
 })
 
 export type RegisterData = z.infer<typeof RegisterSchema>

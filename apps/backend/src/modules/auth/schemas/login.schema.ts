@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { codeValidator } from '@/shared'
+import { userCodeValidator } from '@/shared'
 
 export const LoginSchema = z.object({
-  code: codeValidator,
+  code: userCodeValidator,
 })
 
 export type LoginData = z.infer<typeof LoginSchema>
