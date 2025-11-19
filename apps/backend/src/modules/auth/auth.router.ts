@@ -1,4 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
+import { toUser } from '@/database'
 import { factory } from '@/lib'
 import { roleMiddleware, sessionMiddleware } from '@/middleware'
 import { wrapSuccess } from '@/shared'
@@ -6,6 +7,16 @@ import { login, logout, register } from './auth.service'
 import { LoginSchema, RegisterSchema } from './schemas'
 
 const authRouter = factory.createApp()
+
+authRouter.get(
+  '/session',
+  sessionMiddleware(),
+  async (c) => {
+    const user = c.get('user')
+
+    return c.json(wrapSuccess({ user: toUser(user) }), 200)
+  },
+)
 
 authRouter.post(
   '/login',

@@ -15,6 +15,15 @@ export const usersTable = sqliteTable('users', {
 export type User = InferSelectModel<typeof usersTable>
 export type NewUser = InferInsertModel<typeof usersTable>
 
+export function toUser(user: User): Omit<User, 'code'> {
+  return {
+    id: user.id,
+    createdAt: user.createdAt,
+    name: user.name,
+    role: user.role,
+  }
+}
+
 export const sessionsTable = sqliteTable('sessions', {
   id: int().primaryKey({ autoIncrement: true }),
   userId: int('user_id')
