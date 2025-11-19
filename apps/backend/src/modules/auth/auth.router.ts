@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
-import { toUser } from '@/database'
+import { toUserDTO } from '@/database'
 import { factory } from '@/lib'
 import { roleMiddleware, sessionMiddleware } from '@/middleware'
 import { wrapSuccess } from '@/shared'
@@ -14,7 +14,7 @@ authRouter.get(
   async (c) => {
     const user = c.get('user')
 
-    return c.json(wrapSuccess({ user: toUser(user) }), 200)
+    return c.json(wrapSuccess({ user: toUserDTO(user) }), 200)
   },
 )
 

@@ -17,7 +17,7 @@ export type UserRole = User['role']
 export type UserDTO = Omit<User, 'code'>
 export type NewUser = InferInsertModel<typeof usersTable>
 
-export function toUser(user: User): Omit<User, 'code'> {
+export function toUserDTO(user: User): Omit<User, 'code'> {
   return {
     id: user.id,
     createdAt: user.createdAt,

@@ -14,3 +14,7 @@ export const userCodeValidator = z
 
 export const settingsKeyValidator = z.string().min(1)
 export const settingsValueValidator = z.string().min(1)
+
+export const stringToNumberValidator = z.string()
+  .regex(/^\d+$/)
+  .transform(v => Number(v))
