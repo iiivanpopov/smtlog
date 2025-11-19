@@ -17,4 +17,8 @@ export class ApiException extends HTTPException {
   static NotFound(message: string = 'Not Found', options?: Omit<HTTPExceptionOptions, 'message'>) {
     return new HTTPException(404, { message, ...options })
   }
+
+  static InternalServerError(message: string = 'Internal Server Error', options?: Omit<HTTPExceptionOptions, 'message'>) {
+    return new HTTPException(500, { message, ...options })
+  }
 }

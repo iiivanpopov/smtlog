@@ -3,6 +3,7 @@ import { env } from './env'
 import { logger } from './logger'
 import { secrets } from './secret'
 import { server } from './server'
+import { settings } from './settings'
 
 export const config = {
   env,
@@ -10,4 +11,5 @@ export const config = {
   server,
   database,
   secrets,
+  settings,
 } as const

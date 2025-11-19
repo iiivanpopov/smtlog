@@ -8,5 +8,5 @@ export default antfu({
   yaml: true,
   formatters: true,
   ignores: ['**/drizzle'],
-  rules: { 'antfu/no-top-level-await': 'off' },
+  rules: { 'antfu/no-top-level-await': 'off', 'unicorn/throw-new-error': 'off' },
 })
