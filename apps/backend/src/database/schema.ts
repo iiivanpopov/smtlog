@@ -4,9 +4,9 @@ import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const usersTable = sqliteTable('users', {
   id: int().primaryKey({ autoIncrement: true }),
-  role: text({ enum: ['admin', 'user'] as const }).notNull().default('user'),
-  name: text().notNull(),
-  code: text().notNull(),
+  role: text({ enum: ['admin', 'user'] }).notNull().default('user'),
+  name: text().notNull().unique(),
+  code: text().notNull().unique(),
   createdAt: int('created_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
