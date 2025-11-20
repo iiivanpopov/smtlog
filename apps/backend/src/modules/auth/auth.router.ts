@@ -1,8 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { toUserDTO } from '@/database'
-import { factory } from '@/lib'
+import { factory, wrapSuccess } from '@/lib'
 import { roleMiddleware, sessionMiddleware } from '@/middleware'
-import { wrapSuccess } from '@/shared'
 import { login, logout, register } from './auth.service'
 import { LoginSchema, RegisterSchema } from './schemas'
 

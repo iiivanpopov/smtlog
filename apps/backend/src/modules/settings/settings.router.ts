@@ -1,7 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
-import { factory } from '@/lib'
+import { factory, wrapSuccess } from '@/lib'
 import { roleMiddleware, sessionMiddleware } from '@/middleware'
-import { wrapSuccess } from '@/shared'
 import { GetSettingSchema, SetSettingSchema } from './schemas'
 import { getSetting, setSetting } from './settings.service'
 

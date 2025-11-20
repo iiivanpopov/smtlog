@@ -1,7 +1,6 @@
 import { config } from '@/config'
-import { factory, withCache } from '@/lib'
+import { factory, withCache, wrapSuccess } from '@/lib'
 import { sessionMiddleware } from '@/middleware'
-import { wrapSuccess } from '@/shared'
 import { getDictionary } from './dictionary.service'
 
 const dictionaryRouter = factory.createApp()
