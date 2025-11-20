@@ -5,16 +5,16 @@ import { db, settingsTable } from '@/database'
 import { ApiException } from '@/lib'
 
 export async function getDictionary(): Promise<Record<string, string[]>> {
-  const setting = db
+  const externalDictionary = db
     .select()
     .from(settingsTable)
     .where(eq(settingsTable.key, config.settings.externalDictionary))
     .get()
 
-  if (!setting?.value)
+  if (!externalDictionary?.value)
     throw ApiException.BadRequest()
 
-  const csv = await fetch(setting.value).then((res) => {
+  const csv = await fetch(externalDictionary.value).then((res) => {
     if (!res.ok)
       throw ApiException.InternalServerError()
     return res.text()
