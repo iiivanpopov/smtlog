@@ -1,6 +1,7 @@
 import type { Locale, Theme } from '@/providers'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { createRoot } from 'react-dom/client'
+import { Toaster } from 'sonner'
 import { config } from '@/config'
 import { fetchLocale } from '@/lib'
 import { I18nProvider, QueryProvider, ThemeProvider } from '@/providers'
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
     <I18nProvider initialLocale={initialLocale} initialMessages={initialMessages}>
       <ThemeProvider initialTheme={initialTheme}>
         <RouterProvider router={router} />
+        <Toaster />
       </ThemeProvider>
     </I18nProvider>
   </QueryProvider>,

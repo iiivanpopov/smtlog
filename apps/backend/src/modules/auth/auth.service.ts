@@ -9,7 +9,7 @@ export async function login(code: string) {
     .where(eq(usersTable.code, code))
     .get()
   if (!user)
-    throw ApiException.NotFound()
+    throw ApiException.Unauthorized('Invalid code')
 
   const token = crypto.randomUUID()
 

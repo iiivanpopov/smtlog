@@ -1,7 +1,8 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { LoginPage } from './-components/login-page'
 
 export const Route = createFileRoute('/login')({
-  component: RouteComponent,
+  component: LoginPage,
   beforeLoad: ({ context }) => {
     if (context.user?.role === 'admin')
       throw redirect({ to: '/admin' })
@@ -9,7 +10,3 @@ export const Route = createFileRoute('/login')({
       throw redirect({ to: '/' })
   },
 })
-
-function RouteComponent() {
-  return <div>Hello "/login"!</div>
-}

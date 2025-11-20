@@ -1,1 +1,11 @@
-{}
+{
+  "field.label.code": "Code",
+  "field.description.code": "Your authorization code. Don't have one? Ask admin.",
+
+  "action.login": "Login",
+  "action.submit": "Submit",
+
+  "validation.digits": "Only digits are accepted",
+  "validation.user-code.min": "Too small. Min length is 6",
+  "validation.user-code.max": "Too small. Max length is 12"
+}

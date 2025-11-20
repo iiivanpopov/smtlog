@@ -1,6 +1,5 @@
 import type { ClassValue } from 'clsx'
 import type { Locale } from '@/providers'
-
 import fetches from '@siberiacancode/fetches'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'

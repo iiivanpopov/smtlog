@@ -9,7 +9,7 @@ export interface RouteContext {
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({
-  component: Outlet,
+  component: RouteComponent,
   beforeLoad: async () => {
     const sessionToken = localStorage.getItem(config.localStorage.sessionToken)
     if (!sessionToken)
@@ -19,6 +19,14 @@ export const Route = createRootRouteWithContext<RouteContext>()({
       options: { staleTime: 1000 * 60 * 10, gcTime: 1000 * 60 * 30 },
     }))
 
-    return response.user
+    return { user: response.data?.user }
   },
 })
+
+function RouteComponent() {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Outlet />
+    </div>
+  )
+}
