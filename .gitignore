@@ -4,4 +4,4 @@ dist
 node_modules
 database.sqlite
 routeTree.gen.ts
-./apps/backend/types/*
+/apps/backend/types
