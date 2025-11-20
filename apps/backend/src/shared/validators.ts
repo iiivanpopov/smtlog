@@ -1,25 +1,42 @@
 import { z } from 'zod'
 
+export const stringToNumberValidator = z
+  .string()
+  .regex(/^\d+$/)
+  .transform(v => Number(v))
+
 export const userNameValidator = z
-  .string('validation.string')
-  .min(2, 'validation.min')
-  .max(64, 'validation.max')
+  .string()
+  .min(2)
+  .max(64)
   .transform(v => v.trim().replace(/\s+/g, ' '))
 
 export const userCodeValidator = z
-  .string('validation.string')
-  .min(6, 'validation.min')
-  .max(12, 'validation.max')
-  .regex(/^\d+$/, 'validation.digits')
+  .string()
+  .min(6)
+  .max(12)
+  .regex(/^\d+$/)
 
 export const settingsKeyValidator = z
-  .string('validation.string')
-  .min(1, 'validation.min')
+  .string()
+  .min(1)
 export const settingsValueValidator = z
-  .string('validation.string')
-  .min(1, 'validation.min')
+  .string()
+  .min(1)
 
-export const stringToNumberValidator = z
-  .string('validation.string')
-  .regex(/^\d+$/, 'validation.digits')
-  .transform(v => Number(v))
+export const paginationPageValidator = stringToNumberValidator.default(0)
+export const paginationLimitValidator = stringToNumberValidator.default(10)
+
+export const smtLineBoardValidator = z
+  .string()
+  .min(1)
+export const smtLineCountValidator = z
+  .number()
+  .min(1)
+export const smtLineCommentValidator = z
+  .string()
+  .optional()
+export const smtLineTimeStartValidator = z
+  .number()
+export const smtLineTimeEndValidator = z
+  .number()

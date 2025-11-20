@@ -12,7 +12,7 @@ dictionaryRouter.get(
   async (c) => {
     const dictionary = await withCache(config.cache.dictionary, getDictionary, 5 * 60)
 
-    return c.json(wrapSuccess(dictionary))
+    return c.json(wrapSuccess(dictionary), 200)
   },
 )
 

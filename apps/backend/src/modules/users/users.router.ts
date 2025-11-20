@@ -16,7 +16,7 @@ usersRouter.get(
 
     const users = await getUsers(query)
 
-    return c.json(wrapSuccess({ users }))
+    return c.json(wrapSuccess({ users }), 200)
   },
 )
 
@@ -28,7 +28,7 @@ usersRouter.delete(
 
     await deleteUser(id)
 
-    return c.json(wrapSuccess())
+    return c.json(wrapSuccess(), 200)
   },
 )
 

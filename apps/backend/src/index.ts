@@ -1,2 +1,5 @@
-export type { Setting, UserDTO, UserRole } from '@/database'
+export type { Setting, SMTLine, UserDTO, UserRole } from '@/database'
 export type * from '@/modules/auth/schemas'
+export type * from '@/modules/settings/schemas'
+export type * from '@/modules/smt-lines/schemas'
+export type * from '@/modules/users/schemas'

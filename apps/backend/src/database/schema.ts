@@ -54,6 +54,7 @@ export const smtLinesTable = sqliteTable('smt_lines', {
   id: int().primaryKey({ autoIncrement: true }),
   userId: int('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   board: text().notNull(),
+  comment: text(),
   count: int().notNull(),
   timeStart: int('time_start', { mode: 'timestamp' }).notNull(),
   timeEnd: int('time_end', { mode: 'timestamp' }).notNull(),
