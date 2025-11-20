@@ -12,9 +12,14 @@ export const userCodeValidator = z
   .max(12, 'validation.max')
   .regex(/^\d+$/, 'validation.digits')
 
-export const settingsKeyValidator = z.string().min(1)
-export const settingsValueValidator = z.string().min(1)
+export const settingsKeyValidator = z
+  .string('validation.string')
+  .min(1, 'validation.min')
+export const settingsValueValidator = z
+  .string('validation.string')
+  .min(1, 'validation.min')
 
-export const stringToNumberValidator = z.string()
-  .regex(/^\d+$/)
+export const stringToNumberValidator = z
+  .string('validation.string')
+  .regex(/^\d+$/, 'validation.digits')
   .transform(v => Number(v))
