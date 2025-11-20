@@ -1,13 +1,12 @@
 {
   "name": "@smtlog/backend",
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "files": ["./src/index.ts"],
+  "types": "./types/index.d.mts",
+  "files": ["types"],
   "scripts": {
     "build:dev": "NODE_ENV=development bun build.script.ts",
     "build:prod": "NODE_ENV=production bun build.script.ts",
+    "build:types": "tsdown --emitDtsOnly -d types --logLevel error --target esnext",
     "dev": "NODE_ENV=development bun --hot ./src/app/main.ts",
     "prod": "NODE_ENV=production bun ./dist/index.js"
   },
@@ -24,6 +23,8 @@
     "@types/papaparse": "^5.5.0",
     "better-sqlite3": "^12.4.1",
     "drizzle-kit": "^0.31.7",
-    "pino-pretty": "^13.1.2"
+    "pino-pretty": "^13.1.2",
+    "tsdown": "^0.16.6",
+    "typescript": "^5.9.3"
   }
 }

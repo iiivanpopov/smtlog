@@ -1,7 +1,7 @@
 import type { User } from '@/database'
 import { createFactory } from 'hono/factory'
 
-interface Env {
+export interface Env {
   Variables: {
     user: User
   }

@@ -7,7 +7,7 @@ export default antfu({
   imports: true,
   yaml: true,
   formatters: true,
-  ignores: ['**/drizzle', '**/routeTree.gen.ts'],
+  ignores: ['**/drizzle', '**/routeTree.gen.ts', './apps/backend/types'],
   rules: {
     'antfu/no-top-level-await': 'off',
     'unicorn/throw-new-error': 'off',

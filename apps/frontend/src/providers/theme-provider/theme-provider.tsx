@@ -1,6 +1,5 @@
 import type { ReactNode, SetStateAction } from 'react'
 import type { Theme } from './theme-context'
-
 import { createContext, useState } from 'react'
 
 interface ThemeContextValue {

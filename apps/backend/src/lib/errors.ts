@@ -1,5 +1,10 @@
-import type { HTTPExceptionOptions } from 'hono/http-exception'
 import { HTTPException } from 'hono/http-exception'
+
+interface HTTPExceptionOptions {
+  res?: Response
+  message?: string
+  cause?: unknown
+}
 
 export class ApiException extends HTTPException {
   static BadRequest(message: string = 'Bad Request', options?: Omit<HTTPExceptionOptions, 'message'>) {

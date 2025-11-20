@@ -1,9 +1,7 @@
 import type { ReactNode, SetStateAction } from 'react'
 import type { Locale } from './i18n-context'
-
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
-
 import { fetchLocale } from '@/lib'
 import { I18nContext } from './i18n-context'
 
