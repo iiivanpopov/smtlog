@@ -49,3 +49,18 @@ export const settingsTable = sqliteTable('settings', {
 
 export type Setting = InferSelectModel<typeof settingsTable>
 export type NewSetting = InferInsertModel<typeof settingsTable>
+
+export const smtLinesTable = sqliteTable('smt_lines', {
+  id: int().primaryKey({ autoIncrement: true }),
+  userId: int('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  board: text().notNull(),
+  count: int().notNull(),
+  timeStart: int('time_start', { mode: 'timestamp' }).notNull(),
+  timeEnd: int('time_end', { mode: 'timestamp' }).notNull(),
+  createdAt: int('created_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+})
+
+export type SMTLine = InferSelectModel<typeof smtLinesTable>
+export type NewSMTLine = InferInsertModel<typeof smtLinesTable>

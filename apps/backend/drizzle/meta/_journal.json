@@ -15,6 +15,13 @@
       "when": 1763557738532,
       "tag": "0001_breezy_sharon_ventura",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1763618484934,
+      "tag": "0002_milky_tomas",
+      "breakpoints": true
     }
   ]
 }
