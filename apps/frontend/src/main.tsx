@@ -6,7 +6,9 @@ import { createRoot } from 'react-dom/client'
 import { LOCAL_STORAGE } from '@/config'
 import { fetchLocale } from '@/lib'
 import { I18nProvider, ThemeProvider } from '@/providers'
-import { routeTree } from '@/routeTree.gen'
+
+import { routeTree } from './routeTree.gen'
+
 import '@/styles/index.css'
 
 const router = createRouter({
