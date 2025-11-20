@@ -9,8 +9,6 @@ import '@/styles/index.css'
 
 const router = createRouter({
   routeTree,
-  defaultPreload: 'intent',
-  scrollRestoration: true,
   context: {
     user: undefined,
   },

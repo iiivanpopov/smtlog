@@ -11,9 +11,5 @@ export function getSessionQueryOptions(settings?: QuerySettings<typeof getSessio
 }
 
 export function useGetSessionQuery(settings?: QuerySettings<typeof getSession>) {
-  return useQuery({
-    queryKey: ['getSession'],
-    queryFn: () => getSession({ config: settings?.config }),
-    ...settings?.options,
-  })
+  return useQuery(getSessionQueryOptions(settings))
 }
