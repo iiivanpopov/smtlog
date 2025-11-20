@@ -17,7 +17,7 @@ export type UserRole = User['role']
 export type UserDTO = Omit<User, 'code'>
 export type NewUser = InferInsertModel<typeof usersTable>
 
-export function toUserDTO(user: User): Omit<User, 'code'> {
+export function toUserDTO(user: User): UserDTO {
   return {
     id: user.id,
     createdAt: user.createdAt,
@@ -48,6 +48,7 @@ export const settingsTable = sqliteTable('settings', {
 })
 
 export type Setting = InferSelectModel<typeof settingsTable>
+export type SettingDTO = Setting
 export type NewSetting = InferInsertModel<typeof settingsTable>
 
 export const smtLinesTable = sqliteTable('smt_lines', {
@@ -64,4 +65,5 @@ export const smtLinesTable = sqliteTable('smt_lines', {
 })
 
 export type SMTLine = InferSelectModel<typeof smtLinesTable>
+export type SMTLineDTO = SMTLine
 export type NewSMTLine = InferInsertModel<typeof smtLinesTable>
