@@ -8,7 +8,7 @@ export function LoginPage() {
   const { t } = useI18n()
 
   return (
-    <Card>
+    <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>
           <I18nText id="action.login" />
@@ -46,7 +46,7 @@ export function LoginPage() {
         <Button
           type="submit"
           form="login-form"
-          disabled={mutations.login.isPending}
+          disabled={mutations.login.isPending || !state.loginForm.formState.isValid}
         >
           <I18nText id="action.submit" />
         </Button>

@@ -1,13 +1,8 @@
 import type { ReactNode, SetStateAction } from 'react'
 import type { Theme } from './theme-context'
-import { createContext, useState } from 'react'
-
-interface ThemeContextValue {
-  theme: Theme
-  setTheme: (theme: Theme | ((prev: Theme) => Theme)) => void
-}
-
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
+import { useState } from 'react'
+import { config } from '@/config'
+import { ThemeContext } from './theme-context'
 
 interface ThemeProviderProps {
   initialTheme: Theme
@@ -22,6 +17,7 @@ export function ThemeProvider({ initialTheme, children }: ThemeProviderProps) {
       const nextTheme = typeof newTheme === 'function' ? newTheme(current) : newTheme
       document.documentElement.classList.remove('light', 'dark')
       document.documentElement.classList.add(nextTheme)
+      localStorage.setItem(config.localStorage.theme, nextTheme)
       return nextTheme
     })
   }

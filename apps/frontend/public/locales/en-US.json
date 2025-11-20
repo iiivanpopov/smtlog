@@ -1,11 +1,32 @@
 {
+  "field.label.count": "Count",
   "field.label.code": "Code",
   "field.description.code": "Your authorization code. Don't have one? Ask admin.",
 
   "action.login": "Login",
   "action.submit": "Submit",
+  "action.submit.description": "Double check your input",
+  "action.create-new": "Create new",
 
   "validation.digits": "Only digits are accepted",
   "validation.user-code.min": "Too small. Min length is 6",
-  "validation.user-code.max": "Too small. Max length is 12"
+  "validation.user-code.max": "Too small. Max length is 12",
+
+  "field.label.board": "Board",
+  "placeholder.board": "Select board please...",
+  "field.board.not-found": "No board found.",
+
+  "validation.board.min": "Too small. Min length is 1",
+
+  "field.board.search": "Search board...",
+
+  "action.refresh": "Refresh",
+  "action.go-home": "Go Home",
+  "validation.non-empty": "Required",
+  "validation.number": "Must be a number",
+
+  "field.locale.label": "Locale",
+
+  "validation.new-form.count.min": "Min count 1",
+  "title.unexpected-error": "Unexpected error happened"
 }

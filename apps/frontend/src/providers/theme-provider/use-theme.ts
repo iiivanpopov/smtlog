@@ -1,7 +1,11 @@
 import { use } from 'react'
-
 import { ThemeContext } from './theme-context'
 
 export function useTheme() {
-  return use(ThemeContext)
+  const context = use(ThemeContext)
+
+  const toggle = () =>
+    context.setTheme(currentTheme => currentTheme === 'dark' ? 'light' : 'dark')
+
+  return { value: context.theme, set: context.setTheme, toggle }
 }
