@@ -7,6 +7,11 @@ export default antfu({
   imports: true,
   yaml: true,
   formatters: true,
-  ignores: ['**/drizzle'],
-  rules: { 'antfu/no-top-level-await': 'off', 'unicorn/throw-new-error': 'off' },
+  ignores: ['**/drizzle', '**/routeTree.gen.ts'],
+  rules: {
+    'antfu/no-top-level-await': 'off',
+    'unicorn/throw-new-error': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    'react/no-unstable-context-value': 'off',
+  },
 })
