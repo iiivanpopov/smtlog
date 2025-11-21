@@ -29,7 +29,6 @@ export function LoginPage() {
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  autoComplete="off"
                 />
                 <FieldDescription>
                   <I18nText id="field.description.code" />

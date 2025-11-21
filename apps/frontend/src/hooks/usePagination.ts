@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 import { useRef, useState } from 'react'
 
 /** The use offset pagination return type */
@@ -64,7 +65,6 @@ export function useOffsetPagination({
   const [pageSize, setPageSize] = useState(initialPageSize)
 
   const onChangeRef = useRef(onChange)
-  // eslint-disable-next-line react-hooks/refs
   onChangeRef.current = onChange
 
   const pageCount = Math.max(1, Math.ceil(total / pageSize))

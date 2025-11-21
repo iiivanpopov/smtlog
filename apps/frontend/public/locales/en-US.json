@@ -12,8 +12,8 @@
   "validation.user-code.min": "Too small. Min length is 6",
   "validation.user-code.max": "Too small. Max length is 12",
 
-  "field.label.board": "Board",
-  "placeholder.board": "Select board please...",
+  "field.board.label": "Board",
+  "field.board.placeholder": "Select board",
   "field.board.not-found": "No board found.",
 
   "validation.board.min": "Too small. Min length is 1",
@@ -31,6 +31,21 @@
   "title.unexpected-error": "Unexpected error happened",
 
   "action.logout": "Logout",
-  "title.page-not-found": "Page Not Found"
+  "title.page-not-found": "Page Not Found",
 
+  "field.comment.description": "Add any additional context (optional)",
+  "field.comment.label": "Comment",
+  "field.comment.placeholder": "Optional comment here...",
+
+  "field.datepicker.placeholder": "Select date",
+
+  "logged-in-as": "Logged in as",
+  "title.logout": "Are you really want to logout?",
+  "action.close": "Close",
+
+  "field.start-time.label": "Start datetime",
+  "field.end-time.label": "End datetime",
+
+  "dialog.logout.title": "Logout",
+  "dialog.logout.description": "Are you sure want to logout?"
 }

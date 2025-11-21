@@ -2,7 +2,7 @@
   @font-face {
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: bold;
+    font-weight: 700;
     font-display: swap;
     src: url('/fonts/NotoSans-Bold.woff2') format('woff2');
   }

@@ -29,6 +29,6 @@
 
   ::view-transition-new(root) {
     z-index: 2;
-    animation: 300ms ease-out both circle-in;
+    animation: 300ms ease-out forwards circle-in;
   }
 }

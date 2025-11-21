@@ -9,6 +9,8 @@ import { newFormDefaultValues, NewFormSchema } from '../-schemas/new-form.schema
 
 export function useNewPage() {
   const boardsSelect = useDisclosure()
+  const dateStartPicker = useDisclosure()
+  const dateEndPicker = useDisclosure()
   const { page } = useSearch({ from: '/(index)/' })
 
   const [smtLinesQuery, dictionaryQuery] = useSuspenseQueries({
@@ -38,6 +40,8 @@ export function useNewPage() {
     state: {
       newForm,
       boardsSelect,
+      dateStartPicker,
+      dateEndPicker,
     },
     actions: {
       onNewFormSubmit,
