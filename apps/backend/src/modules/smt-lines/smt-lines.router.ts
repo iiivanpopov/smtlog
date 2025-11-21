@@ -9,14 +9,15 @@ const smtLinesRouter = factory.createApp()
 smtLinesRouter.use(sessionMiddleware())
 
 smtLinesRouter.get(
-  '/',
+  '/me',
   zValidator('query', GetSMTLinesSchema),
   async (c) => {
+    const user = c.get('user')
     const query = c.req.valid('query')
 
-    const smtLines = await getSMTLines(query)
+    const data = await getSMTLines(user.id, query)
 
-    return c.json(wrapSuccess({ smtLines }), 200)
+    return c.json(wrapSuccess(data), 200)
   },
 )
 
@@ -24,9 +25,10 @@ smtLinesRouter.post(
   '/',
   zValidator('json', CreateSMTLineSchema),
   async (c) => {
+    const user = c.get('user')
     const body = c.req.valid('json')
 
-    await createSMTLine(body)
+    await createSMTLine(user.id, body)
 
     return c.json(wrapSuccess(), 201)
   },

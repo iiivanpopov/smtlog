@@ -3,7 +3,7 @@ import type { Locale } from '@/providers'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { getSessionQueryOptions } from '@/api'
-import { Button, I18nText, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from '@/components'
+import { Button, ErrorPage, I18nText, LoadingPage, NotFoundPage, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from '@/components'
 import { config } from '@/config'
 import { queryClient, useI18n, useTheme } from '@/providers'
 
@@ -13,15 +13,15 @@ export interface RouteContext {
 
 export const Route = createRootRouteWithContext<RouteContext>()({
   component: RouteComponent,
-  errorComponent: ErrorComponent,
+  notFoundComponent: NotFoundPage,
+  errorComponent: ErrorPage,
+  pendingComponent: LoadingPage,
   beforeLoad: async () => {
     const sessionToken = localStorage.getItem(config.localStorage.sessionToken)
     if (!sessionToken)
       return undefined
 
-    const response = await queryClient.fetchQuery(getSessionQueryOptions({
-      options: { staleTime: 1000 * 60 * 10, gcTime: 1000 * 60 * 30 },
-    }))
+    const response = await queryClient.fetchQuery(getSessionQueryOptions())
 
     return { user: response.data?.user }
   },
@@ -74,31 +74,6 @@ function RouteComponent() {
         </Select>
       </div>
       <Outlet />
-    </div>
-  )
-}
-
-function ErrorComponent() {
-  return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <span className="text-5xl font-bold">
-        <I18nText id="title.unexpected-error" />
-      </span>
-      <div className="flex gap-4">
-        <Button
-          className="mt-4"
-          onClick={() => location.reload()}
-        >
-          <I18nText id="action.refresh" />
-        </Button>
-        <Button
-          className="mt-4"
-          variant="secondary"
-          onClick={() => location.href = '/'}
-        >
-          <I18nText id="action.go-home" />
-        </Button>
-      </div>
     </div>
   )
 }

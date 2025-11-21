@@ -12,5 +12,5 @@ $api.interceptors.request.use((requestConfig) => {
 })
 
 $api.interceptors.response.use(undefined, (error) => {
-  toast(error.response.data?.message ?? error.message ?? 'Unexpected Error')
+  toast.error(error.response.data?.message ?? error.message ?? 'Unexpected Error')
 })

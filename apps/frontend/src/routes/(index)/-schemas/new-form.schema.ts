@@ -12,8 +12,8 @@ export type NewFormData = z.infer<typeof NewFormSchema>
 
 export const newFormDefaultValues: NewFormData = {
   board: '',
-  // comment: undefined,
   count: 1,
+  // comment: undefined,
   // timeEnd: new Date(),
   // timeStart: new Date(),
 }

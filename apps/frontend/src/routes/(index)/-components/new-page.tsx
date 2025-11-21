@@ -52,19 +52,18 @@ export function NewPage() {
                     <I18nText id="field.label.board" />
                   </FieldLabel>
 
-                  <Popover open={state.boards.opened} onOpenChange={state.boards.setOpened}>
+                  <Popover open={state.boardsSelect.opened} onOpenChange={state.boardsSelect.setOpened}>
                     <PopoverTrigger aria-invalid={fieldState.invalid} asChild>
                       <Button
                         variant="outline"
                         role="combobox"
-                        aria-expanded={state.boards.opened}
+                        aria-invalid={fieldState.invalid}
+                        aria-expanded={state.boardsSelect.opened}
                         className="max-w-[300px] justify-between"
                       >
                         <span className="max-w-[250px] overflow-hidden text-ellipsis">
                           {field.value
-                            ? queries.dictionary.data?.data.boards.find(
-                                board => board === field.value,
-                              )
+                            ? queries.dictionary.data?.data.boards.find(board => board === field.value)
                             : t('placeholder.board')}
                         </span>
                         <ChevronsUpDownIcon className="opacity-50" />
@@ -83,11 +82,9 @@ export function NewPage() {
                               <CommandItem
                                 key={board}
                                 value={board}
-                                onSelect={(currentValue) => {
-                                  field.onChange(
-                                    currentValue === field.value ? '' : currentValue,
-                                  )
-                                  state.boards.close()
+                                onSelect={() => {
+                                  field.onChange(board)
+                                  state.boardsSelect.close()
                                 }}
                               >
                                 <CheckIcon
@@ -96,7 +93,7 @@ export function NewPage() {
                                     field.value === board ? 'opacity-100' : 'opacity-0',
                                   )}
                                 />
-                                <span>{board}</span>
+                                {board}
                               </CommandItem>
                             ))}
                           </CommandGroup>

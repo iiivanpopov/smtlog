@@ -1,38 +1,43 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseQueries } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { getSMTLinesOptions, useGetDictionary } from '@/api'
+import { getDictionaryOptions, getSMTLinesOptions } from '@/api'
 import { useDisclosure, useOffsetPagination } from '@/hooks'
 import { newFormDefaultValues, NewFormSchema } from '../-schemas/new-form.schema'
 
 export function useNewPage() {
+  const boardsSelect = useDisclosure()
   const { page } = useSearch({ from: '/(index)/' })
 
-  const dictionaryQuery = useGetDictionary()
-  const smtLinesQuery = useSuspenseQuery(getSMTLinesOptions({ limit: 10, page }))
-  const pagination = useOffsetPagination({
-    total: 5,
-    initialPageSize: 10,
-    initialPage: 0,
+  const [smtLinesQuery, dictionaryQuery] = useSuspenseQueries({
+    queries: [
+      getSMTLinesOptions({ limit: 10, page }),
+      getDictionaryOptions({ options: { staleTime: 5 * 60 * 1000 } }),
+    ],
   })
 
-  const boards = useDisclosure()
   const newForm = useForm({
     defaultValues: newFormDefaultValues,
     resolver: zodResolver(NewFormSchema),
   })
+  const pagination = useOffsetPagination({
+    total: smtLinesQuery.data.data.meta.total,
+    initialPageSize: 10,
+    initialPage: page,
+  })
 
   const onNewFormSubmit = newForm.handleSubmit(async (data) => {
     toast(JSON.stringify(data))
+    toast.success('Successfully created a new record')
     newForm.reset()
   })
 
   return {
     state: {
       newForm,
-      boards,
+      boardsSelect,
     },
     actions: {
       onNewFormSubmit,

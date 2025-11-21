@@ -8,6 +8,6 @@ export interface GetSMTLinesParams {
   limit: number
 }
 
-export type GetSMTLinesResponse = ApiResponse<{ smtLines: SMTLineDTO[] }>
+export type GetSMTLinesResponse = ApiResponse<{ smtLines: SMTLineDTO[], meta: { total: number } }>
 export const getSMTLines: ApiFetchesRequest<GetSMTLinesParams, FetchesResponse<GetSMTLinesResponse>> = ({ params, config }) =>
-  $api.get('/smt-lines', { ...config, query: { ...params } })
+  $api.get('/smt-lines/me', { ...config, query: { ...params } })

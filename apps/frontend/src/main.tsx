@@ -10,9 +10,6 @@ import '@/styles/index.css'
 
 const router = createRouter({
   routeTree,
-  context: {
-    user: undefined,
-  },
 })
 
 declare module '@tanstack/react-router' {
