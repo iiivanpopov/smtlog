@@ -10,9 +10,11 @@ dictionaryRouter.use(sessionMiddleware())
 dictionaryRouter.get(
   '/',
   async (c) => {
-    const dictionary = await withCache(config.cache.dictionary, getDictionary, 5 * 60)
+    const dictionary = await withCache(config.cache.dictionary, getDictionary, config.cache.dictionaryTTL)
 
-    return c.json(wrapSuccess(dictionary), 200)
+    return c.json(wrapSuccess(dictionary), 200, {
+      'Cache-Control': `public, max-age=${config.cache.dictionaryTTL}, stale-while-revalidate=30`,
+    })
   },
 )
 

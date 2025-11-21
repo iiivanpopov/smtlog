@@ -13,3 +13,10 @@ export async function fetchLocale(locale: Locale) {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function startViewTransition(callback: () => void) {
+  if (document.startViewTransition)
+    document.startViewTransition(callback)
+  else
+    callback()
+}

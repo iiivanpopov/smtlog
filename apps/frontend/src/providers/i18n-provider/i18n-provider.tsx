@@ -1,5 +1,6 @@
-import type { ReactNode, SetStateAction } from 'react'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import type { Locale } from './i18n-context'
+import type { AsyncFunction } from '@/types'
 import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { config } from '@/config'
@@ -16,7 +17,7 @@ export function I18nProvider({ initialLocale, initialMessages, children }: I18nP
   const [locale, setLocale] = useState<Locale>(initialLocale)
   const [messages, setMessages] = useState<Record<string, string>>(initialMessages)
 
-  const setLocalePatched = async (newLocale: SetStateAction<Locale>) => {
+  const setLocalePatched: AsyncFunction<Dispatch<SetStateAction<Locale>>> = async (newLocale) => {
     const nextLocale = typeof newLocale === 'function' ? newLocale(locale) : newLocale
     localStorage.setItem(config.localStorage.locale, nextLocale)
     const messages = await fetchLocale(nextLocale)

@@ -10,16 +10,11 @@ export function useI18n() {
     id?: T,
     values?: Record<string, string | number>,
   ): T extends string ? string : { message?: string } => {
-    if (typeof id === 'object' && id?.message) {
-      return {
-        ...id,
-        message: intl.formatMessage({ id: id.message }, values),
-      } as any
-    }
+    if (typeof id === 'object' && id?.message)
+      return { ...id, message: intl.formatMessage({ id: id.message }, values) } as any
 
-    if (typeof id === 'string' && id.length > 0) {
+    if (typeof id === 'string' && id.length > 0)
       return intl.formatMessage({ id }, values) as any
-    }
 
     return '' as any
   }

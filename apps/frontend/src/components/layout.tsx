@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Locale } from '@/providers'
 import { MoonIcon, SunIcon } from 'lucide-react'
+import { startViewTransition } from '@/lib'
 import { useI18n, useTheme } from '@/providers'
 import { I18nText } from './i18n'
 import { Button, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from './ui'
@@ -27,14 +28,17 @@ export function Layout({ children }: LayoutProps) {
   const theme = useTheme()
   const i18n = useI18n()
 
+  const onThemeChange = () => startViewTransition(theme.toggle)
+  const onLocaleChange = (value: string) => i18n.setLocale(value as Locale)
+
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex gap-4 my-4 w-[350px]">
-        <Button size="icon" variant="outline" onClick={theme.toggle}>
+        <Button size="icon" variant="outline" onClick={onThemeChange}>
           {theme.value === 'dark' && <MoonIcon />}
           {theme.value === 'light' && <SunIcon />}
         </Button>
-        <Select value={i18n.locale} onValueChange={value => i18n.setLocale(value as Locale)}>
+        <Select value={i18n.locale} onValueChange={onLocaleChange}>
           <SelectTrigger>
             {LOCALES.find(locale => locale.value === i18n.locale)!.label}
           </SelectTrigger>
@@ -44,7 +48,7 @@ export function Layout({ children }: LayoutProps) {
                 <I18nText id="field.locale.label" />
               </SelectLabel>
               {LOCALES.map(locale => (
-                <SelectItem key={locale.value}value={locale.value}>
+                <SelectItem key={locale.value} value={locale.value}>
                   {locale.label}
                 </SelectItem>
               ))}
