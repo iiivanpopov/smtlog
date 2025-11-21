@@ -11,16 +11,16 @@ export const RouteQuerySchema = z.object({
 
 export const Route = createFileRoute('/(index)/')({
   component: NewPage,
+  errorComponent: ErrorPage,
+  pendingComponent: LoadingPage,
+  notFoundComponent: NotFoundPage,
+  validateSearch: RouteQuerySchema,
   beforeLoad: ({ context }) => {
     if (!context.user?.role)
       throw redirect({ to: '/login' })
     if (context.user?.role === 'admin')
       throw redirect({ to: '/admin' })
   },
-  notFoundComponent: NotFoundPage,
-  errorComponent: ErrorPage,
-  pendingComponent: LoadingPage,
-  validateSearch: RouteQuerySchema,
   loader: ({ location }) => [
     queryClient.ensureQueryData(getSMTLinesOptions({ limit: 10, page: 0, ...location.search })),
     queryClient.ensureQueryData(getDictionaryOptions({ options: { staleTime: 5 * 60 * 1000 } })),

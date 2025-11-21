@@ -30,5 +30,7 @@
   "validation.new-form.count.min": "Min count 1",
   "title.unexpected-error": "Unexpected error happened",
 
-  "action.logout": "Logout"
+  "action.logout": "Logout",
+  "title.page-not-found": "Page Not Found"
+
 }

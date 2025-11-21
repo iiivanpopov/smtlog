@@ -7,7 +7,7 @@ export function NotFoundPage() {
       <p className="text-6xl font-bold">
         404
       </p>
-      <p className="text-5xl font-bold">
+      <p className="mt-4 text-5xl font-medium">
         <I18nText id="title.page-not-found" />
       </p>
       <Button className="mt-4" variant="secondary" onClick={() => location.href = '/'}>

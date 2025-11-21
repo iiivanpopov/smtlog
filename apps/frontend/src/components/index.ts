@@ -1,5 +1,6 @@
 export * from './error-page'
 export * from './i18n'
+export * from './layout'
 export * from './loading-page'
 export * from './not-found-page'
 export * from './ui'
