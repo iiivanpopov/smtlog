@@ -32,12 +32,12 @@ export interface MutationSettings<
   >
   config?: RequestOptions
 }
+export type MutationParams<T> = T extends undefined
+  ? { config?: RequestOptions } | void
+  : { config?: RequestOptions, params: T }
 
-export interface MutationParams<T> {
-  config?: RequestOptions
-  params: T
-}
-
-export type ApiResponse<T> = T & {
+export type ApiResponse<T = undefined> = T extends undefined ? {
+  success: true
+} : T & {
   success: true
 }

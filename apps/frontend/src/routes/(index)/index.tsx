@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
 import { getDictionaryOptions, getSMTLinesOptions } from '@/api'
-import { ErrorPage, LoadingPage, NotFoundPage } from '@/components'
 import { queryClient } from '@/providers'
 import { NewPage } from './-components/new-page'
 
@@ -11,9 +10,6 @@ export const RouteQuerySchema = z.object({
 
 export const Route = createFileRoute('/(index)/')({
   component: NewPage,
-  errorComponent: ErrorPage,
-  pendingComponent: LoadingPage,
-  notFoundComponent: NotFoundPage,
   validateSearch: RouteQuerySchema,
   beforeLoad: ({ context }) => {
     if (!context.user?.role)

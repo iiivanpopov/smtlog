@@ -8,9 +8,6 @@ import { useDisclosure, useOffsetPagination } from '@/hooks'
 import { newFormDefaultValues, NewFormSchema } from '../-schemas/new-form.schema'
 
 export function useNewPage() {
-  const boardsSelect = useDisclosure()
-  const dateStartPicker = useDisclosure()
-  const dateEndPicker = useDisclosure()
   const { page } = useSearch({ from: '/(index)/' })
 
   const [smtLinesQuery, dictionaryQuery] = useSuspenseQueries({
@@ -24,6 +21,11 @@ export function useNewPage() {
     defaultValues: newFormDefaultValues,
     resolver: zodResolver(NewFormSchema),
   })
+
+  const boardsSelect = useDisclosure()
+  const dateStartPicker = useDisclosure()
+  const dateEndPicker = useDisclosure()
+
   const pagination = useOffsetPagination({
     total: smtLinesQuery.data.data.meta.total,
     initialPageSize: 10,
@@ -37,20 +39,18 @@ export function useNewPage() {
   })
 
   return {
+    queries: {
+      dictionary: dictionaryQuery,
+      smtLines: smtLinesQuery,
+    },
     state: {
       newForm,
       boardsSelect,
       dateStartPicker,
       dateEndPicker,
     },
-    actions: {
-      onNewFormSubmit,
-    },
-    queries: {
-      dictionary: dictionaryQuery,
-      smtLines: smtLinesQuery,
-    },
-    mutations: {},
     pagination,
+    mutations: {},
+    handlers: { onNewFormSubmit },
   }
 }

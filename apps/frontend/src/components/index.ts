@@ -1,4 +1,5 @@
 export * from './error-page'
+export * from './header'
 export * from './i18n'
 export * from './layout'
 export * from './loading-page'

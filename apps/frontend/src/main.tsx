@@ -2,6 +2,7 @@ import type { Locale, Theme } from '@/providers'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { createRoot } from 'react-dom/client'
 import { Toaster } from 'sonner'
+import { errorPageHandler, LoadingPage, NotFoundPage } from '@/components'
 import { config } from '@/config'
 import { fetchLocale } from '@/lib'
 import { I18nProvider, QueryProvider, ThemeProvider } from '@/providers'
@@ -10,6 +11,9 @@ import '@/styles/index.css'
 
 const router = createRouter({
   routeTree,
+  defaultErrorComponent: errorPageHandler,
+  defaultPendingComponent: LoadingPage,
+  defaultNotFoundComponent: NotFoundPage,
 })
 
 declare module '@tanstack/react-router' {

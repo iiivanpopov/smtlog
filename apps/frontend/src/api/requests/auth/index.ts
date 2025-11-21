@@ -11,3 +11,6 @@ export const login: ApiFetchesRequest<LoginParams, FetchesResponse<LoginResponse
 
 export type GetSessionResponse = ApiResponse<{ user: UserDTO }>
 export const getSession: ApiFetchesRequest<undefined, FetchesResponse<GetSessionResponse>> = ({ config } = {}) => $api.get('/auth/session', config)
+
+export type LogoutResponse = ApiResponse
+export const logout: ApiFetchesRequest<undefined, FetchesResponse<LogoutResponse>> = ({ config } = {}) => $api.post('/auth/logout', undefined, config)

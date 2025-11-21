@@ -1,51 +1,37 @@
 {
-  "field.label.count": "Count",
-  "field.label.code": "Code",
-  "field.description.code": "Your authorization code. Don't have one? Ask admin.",
-
-  "action.login": "Login",
-  "action.submit": "Submit",
-  "action.submit.description": "Double check your input",
+  "action.close": "Close",
   "action.create-new": "Submit a record",
-
-  "validation.digits": "Only digits are accepted",
-  "validation.user-code.min": "Too small. Min length is 6",
-  "validation.user-code.max": "Too small. Max length is 12",
-
-  "field.board.label": "Board",
-  "field.board.placeholder": "Select board",
-  "field.board.not-found": "No board found.",
-
-  "validation.board.min": "Too small. Min length is 1",
-
-  "field.board.search": "Search board...",
-
-  "action.refresh": "Refresh",
   "action.go-home": "Go Home",
-  "validation.non-empty": "Required",
-  "validation.number": "Must be a number",
-
-  "field.locale.label": "Locale",
-
-  "validation.new-form.count.min": "Min count 1",
-  "title.unexpected-error": "Unexpected error happened",
-
+  "action.login": "Login",
   "action.logout": "Logout",
-  "title.page-not-found": "Page Not Found",
-
+  "action.refresh": "Refresh",
+  "action.submit": "Submit",
+  "dialog.logout.description": "Are you sure want to logout?",
+  "dialog.logout.title": "Logout",
+  "field.board.label": "Board",
+  "field.board.not-found": "No board found.",
+  "field.board.placeholder": "Select board",
+  "field.board.search": "Search board...",
+  "field.code": "Code",
   "field.comment.description": "Add any additional context (optional)",
   "field.comment.label": "Comment",
   "field.comment.placeholder": "Optional comment here...",
-
   "field.datepicker.placeholder": "Select date",
-
+  "field.description.code": "Your authorization code. Don't have one? Ask admin.",
+  "field.end-time.label": "End datetime",
+  "field.label.code": "Code",
+  "field.label.count": "Count",
+  "field.locale.label": "Locale",
+  "field.start-time.label": "Start datetime",
   "logged-in-as": "Logged in as",
   "title.logout": "Are you really want to logout?",
-  "action.close": "Close",
-
-  "field.start-time.label": "Start datetime",
-  "field.end-time.label": "End datetime",
-
-  "dialog.logout.title": "Logout",
-  "dialog.logout.description": "Are you sure want to logout?"
+  "title.page-not-found": "Page Not Found",
+  "title.unexpected-error": "Unexpected error happened",
+  "validation.board.min": "Too small. Min length is 1",
+  "validation.digits": "Only digits are accepted",
+  "validation.new-form.count.min": "Min count 1",
+  "validation.non-empty": "Required",
+  "validation.number": "Must be a number",
+  "validation.user-code.max": "Too small. Max length is 12",
+  "validation.user-code.min": "Too small. Min length is 6"
 }

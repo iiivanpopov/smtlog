@@ -24,7 +24,7 @@ export function useLoginPage() {
 
   return {
     state: { loginForm },
-    actions: { onLoginFormSubmit },
+    handlers: { onLoginFormSubmit },
     mutations: { login: loginMutation },
   }
 }

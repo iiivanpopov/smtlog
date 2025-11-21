@@ -1,7 +1,6 @@
 import type { UserDTO } from '@smtlog/backend'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getSessionQueryOptions } from '@/api'
-import { ErrorPage, Layout, LoadingPage, NotFoundPage } from '@/components'
 import { config } from '@/config'
 import { queryClient } from '@/providers'
 
@@ -10,10 +9,7 @@ export interface RouteContext {
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({
-  component: RouteComponent,
-  errorComponent: ErrorPage,
-  pendingComponent: LoadingPage,
-  notFoundComponent: NotFoundPage,
+  component: Outlet,
   beforeLoad: async () => {
     const sessionToken = localStorage.getItem(config.localStorage.sessionToken)
     if (!sessionToken)
@@ -27,11 +23,3 @@ export const Route = createRootRouteWithContext<RouteContext>()({
       })
   },
 })
-
-function RouteComponent() {
-  return (
-    <Layout>
-      <Outlet />
-    </Layout>
-  )
-}

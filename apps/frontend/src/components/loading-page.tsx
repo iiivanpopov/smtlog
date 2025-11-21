@@ -1,5 +1,6 @@
 import { Loader2Icon } from 'lucide-react'
+import { Layout } from './layout'
 
 export function LoadingPage() {
-  return <Loader2Icon className="size-14 animate-spin" />
+  return <Layout><Loader2Icon className="size-12 animate-spin" /></Layout>
 }
