@@ -305,14 +305,14 @@ export function NewPage() {
                       name="timestampStart.date"
                       control={state.newForm.control}
                       render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px]">
+                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-3">
                           <Popover open={state.dateStartPicker.opened} onOpenChange={state.dateStartPicker.setOpened}>
                             <PopoverTrigger asChild>
                               <Button
                                 aria-invalid={fieldState.invalid}
                                 aria-expanded={state.dateStartPicker.opened}
                                 variant="outline"
-                                className="flex-1 max-h-9 justify-between font-normal"
+                                className="max-h-9 justify-between font-normal"
                               >
                                 {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
                                 <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
@@ -339,7 +339,7 @@ export function NewPage() {
                       name="timestampStart.time"
                       control={state.newForm.control}
                       render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px]">
+                        <Field data-invalid={fieldState.invalid} className="flex-2 w-[140px]">
                           <Input
                             {...field}
                             type="time"
@@ -362,7 +362,7 @@ export function NewPage() {
                       name="timestampEnd.date"
                       control={state.newForm.control}
                       render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px]">
+                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-3">
                           <Popover open={state.dateEndPicker.opened} onOpenChange={state.dateEndPicker.setOpened}>
                             <PopoverTrigger asChild>
                               <Button
@@ -396,7 +396,7 @@ export function NewPage() {
                       name="timestampEnd.time"
                       control={state.newForm.control}
                       render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px]">
+                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-2">
                           <Input
                             {...field}
                             type="time"

@@ -23,6 +23,7 @@
   "field.code.placeholder": "754322",
   "field.name.label": "Name",
   "field.name.placeholder": "I. P. Serhiyovich",
+  "toast.registered-user": "Successfully registered user",
   "field.comment.description": "Add any additional context (optional)",
   "field.comment.label": "Comment",
   "field.comment.placeholder": "Optional comment here...",
