@@ -1,19 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSuspenseQueries } from '@tanstack/react-query'
-import { useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { getDictionaryOptions, getSMTLinesOptions, useCreateSMTLineMutation } from '@/api'
-import { useDisclosure, useOffsetPagination } from '@/hooks'
+import { getDictionaryOptions, getSMTLinesOptions, useCreateSMTLineMutation, useDeleteSMTLineMutation } from '@/api'
+import { useDisclosure } from '@/hooks'
 import { timeToSeconds } from '@/lib'
+import { queryClient, useI18n } from '@/providers'
 import { newFormDefaultValues, NewFormSchema } from '../-schemas/new-form.schema'
 
 export function useNewPage() {
-  const { page } = useSearch({ from: '/(index)/' })
+  const { t } = useI18n()
 
   const [smtLinesQuery, dictionaryQuery] = useSuspenseQueries({
     queries: [
-      getSMTLinesOptions({ limit: 10, page }),
+      getSMTLinesOptions({ limit: 10, page: 1 }),
       getDictionaryOptions({ options: { staleTime: 5 * 60 * 1000 } }),
     ],
   })
@@ -22,19 +22,13 @@ export function useNewPage() {
     defaultValues: newFormDefaultValues,
     resolver: zodResolver(NewFormSchema),
   })
-
   const boardsSelect = useDisclosure()
   const dateStartPicker = useDisclosure()
   const dateEndPicker = useDisclosure()
   const smtLinesModal = useDisclosure()
 
-  const pagination = useOffsetPagination({
-    total: smtLinesQuery.data.data.meta.total,
-    initialPageSize: 10,
-    initialPage: page,
-  })
-
   const createSMTLineMutation = useCreateSMTLineMutation()
+  const deleteSMTLineMutation = useDeleteSMTLineMutation()
 
   const onNewFormSubmit = newForm.handleSubmit(async (data) => {
     await createSMTLineMutation.mutateAsync({
@@ -47,15 +41,22 @@ export function useNewPage() {
       },
     })
 
-    toast.success('Successfully created a new record')
+    toast.success(t('toast.created-smt'))
     newForm.reset()
   })
 
+  const onDeleteSMTLine = async (id: number) => {
+    await deleteSMTLineMutation.mutateAsync({
+      params: { id },
+    })
+
+    queryClient.invalidateQueries(getSMTLinesOptions({ limit: 10, page: 1 }))
+
+    toast.success(t('toast.deleted-smt'))
+  }
+
   return {
-    queries: {
-      dictionary: dictionaryQuery,
-      smtLines: smtLinesQuery,
-    },
+    queries: { dictionary: dictionaryQuery, smtLines: smtLinesQuery },
     state: {
       newForm,
       boardsSelect,
@@ -63,8 +64,7 @@ export function useNewPage() {
       dateEndPicker,
       smtLinesModal,
     },
-    pagination,
-    mutations: { createSMTLine: createSMTLineMutation },
-    handlers: { onNewFormSubmit },
+    mutations: { createSMTLine: createSMTLineMutation, deleteSMTLine: deleteSMTLineMutation },
+    handlers: { onNewFormSubmit, onDeleteSMTLine },
   }
 }

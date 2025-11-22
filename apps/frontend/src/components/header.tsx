@@ -7,7 +7,7 @@ import { useDisclosure } from '@/hooks'
 import { startViewTransition } from '@/lib'
 import { useI18n, useTheme } from '@/providers'
 import { I18nText } from './i18n'
-import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from './ui'
+import { Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from './ui'
 
 const LOCALES: {
   value: Locale
@@ -75,9 +75,11 @@ export function Header() {
               </DialogHeader>
 
               <div className="flex gap-4">
-                <Button onClick={logoutDialog.close}>
-                  <I18nText id="action.close" />
-                </Button>
+                <DialogClose asChild>
+                  <Button>
+                    <I18nText id="action.close" />
+                  </Button>
+                </DialogClose>
                 <Button onClick={onLogout} variant="destructive">
                   <I18nText id="action.logout" />
                 </Button>

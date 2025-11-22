@@ -24,7 +24,7 @@ export const settingsValueValidator = z
   .string()
   .min(1)
 
-export const paginationPageValidator = stringToNumberValidator.default(0)
+export const paginationPageValidator = stringToNumberValidator.default(1)
 export const paginationLimitValidator = stringToNumberValidator.default(10)
 
 export const smtLineBoardValidator = z

@@ -6,12 +6,12 @@ import { config } from '@/config'
 import { loginFormDefaultValues, LoginFormSchema } from '../-schemas/login-form.schema'
 
 export function useLoginPage() {
+  const router = useRouter()
+
   const loginForm = useForm({
     defaultValues: loginFormDefaultValues,
     resolver: zodResolver(LoginFormSchema),
   })
-
-  const router = useRouter()
 
   const loginMutation = useLoginMutation()
 

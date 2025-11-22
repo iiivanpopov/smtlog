@@ -1,13 +1,19 @@
 import type { CreateSMTLineData, GetSMTLinesData } from './schemas'
-import { count, eq } from 'drizzle-orm'
+import { and, count, desc, eq, gt } from 'drizzle-orm'
 import { db, smtLinesTable } from '@/database'
 
 export async function getSMTLines(userId: number, payload: GetSMTLinesData) {
   const smtLines = db.select()
     .from(smtLinesTable)
-    .offset(payload.page * payload.limit)
+    .offset((payload.page - 1) * payload.limit)
     .limit(payload.limit)
-    .where(eq(smtLinesTable.userId, userId))
+    .where(
+      and(
+        eq(smtLinesTable.userId, userId),
+        gt(smtLinesTable.createdAt, new Date(Math.floor(Date.now() / 1000) - 86400)),
+      ),
+    )
+    .orderBy(desc(smtLinesTable.createdAt))
     .all()
 
   const smtLinesCount = db.select({ count: count() })

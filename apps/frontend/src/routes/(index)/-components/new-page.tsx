@@ -1,6 +1,6 @@
-import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ListIcon, TrashIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Calendar, Card, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nText, Input, Layout, Popover, PopoverContent, PopoverTrigger, Spinner, Textarea } from '@/components'
+import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
@@ -17,6 +17,163 @@ export function NewPage() {
           <CardTitle>
             <I18nText id="action.create-new" />
           </CardTitle>
+          <CardAction>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <ListIcon />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-[95vw] lg:max-w-[800px] max-h-[85vh] overflow-hidden flex flex-col">
+                <DialogHeader>
+                  <DialogTitle>
+                    <I18nText id="dialog.smt-lines.title" />
+                  </DialogTitle>
+                  <DialogDescription>
+                    <I18nText id="dialog.smt-lines.description" />
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="hidden lg:block overflow-auto flex-1">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-[120px]">
+                          <I18nText id="table.smt-lines.board" />
+                        </TableHead>
+                        <TableHead className="min-w-[130px]">
+                          <I18nText id="table.smt-lines.start-at" />
+                        </TableHead>
+                        <TableHead className="min-w-[130px]">
+                          <I18nText id="table.smt-lines.end-at" />
+                        </TableHead>
+                        <TableHead className="min-w-[120px]">
+                          <I18nText id="table.smt-lines.comment" />
+                        </TableHead>
+                        <TableHead className="w-16 text-center">
+                          <I18nText id="table.smt-lines.count" />
+                        </TableHead>
+                        <TableHead className="w-16"></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {queries.smtLines.data.data.smtLines.map(smtLine => (
+                        <TableRow key={smtLine.id}>
+                          <TableCell>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <p className="font-semibold text-left line-clamp-2 max-w-[200px]">{smtLine.board}</p>
+                              </TooltipTrigger>
+                              <TooltipContent className="max-w-[300px] wrap-break-word">
+                                {smtLine.board}
+                              </TooltipContent>
+                            </Tooltip>
+                          </TableCell>
+                          <TableCell>
+                            <p><I18nDate date={smtLine.timeStart} /></p>
+                            <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeStart} /></p>
+                          </TableCell>
+                          <TableCell>
+                            <p><I18nDate date={smtLine.timeEnd} /></p>
+                            <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeEnd} /></p>
+                          </TableCell>
+                          <TableCell>
+                            {smtLine.comment && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <p className="text-left line-clamp-2 max-w-[200px]">{smtLine.comment}</p>
+                                </TooltipTrigger>
+                                <TooltipContent className="max-w-[300px] max-h-[300px] wrap-break-word">
+                                  {smtLine.comment}
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
+                            {!smtLine.comment && (
+                              <span className="text-muted-foreground">-</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-center font-medium">
+                            {smtLine.count}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button
+                              disabled={mutations.deleteSMTLine.isPending}
+                              onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
+                              className="text-destructive"
+                              variant="ghost"
+                              size="icon-sm"
+                            >
+                              <TrashIcon />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+
+                <div className="lg:hidden overflow-auto flex-1 space-y-3 px-1">
+                  {queries.smtLines.data.data.smtLines.map(smtLine => (
+                    <Card key={smtLine.id} className="p-4">
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">
+                            <I18nText id="table.smt-lines.board" />
+                          </p>
+                          <p className="font-semibold wrap-break-word">{smtLine.board}</p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="table.smt-lines.start-at" />
+                            </p>
+                            <p className="text-sm"><I18nDate date={smtLine.timeStart} /></p>
+                            <p className="text-xs text-muted-foreground"><I18nTime date={smtLine.timeStart} /></p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="table.smt-lines.end-at" />
+                            </p>
+                            <p className="text-sm"><I18nDate date={smtLine.timeEnd} /></p>
+                            <p className="text-xs text-muted-foreground"><I18nTime date={smtLine.timeEnd} /></p>
+                          </div>
+                        </div>
+
+                        {smtLine.comment && (
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="table.smt-lines.comment" />
+                            </p>
+                            <p className="text-sm wrap-break-word">{smtLine.comment}</p>
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-between pt-2 border-t">
+                          <div>
+                            <span className="text-xs text-muted-foreground mr-2">
+                              <I18nText id="table.smt-lines.count" />
+                              :
+                            </span>
+                            <span className="font-medium">{smtLine.count}</span>
+                          </div>
+                          <Button
+                            disabled={mutations.deleteSMTLine.isPending}
+                            onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
+                            className="text-destructive"
+                            variant="ghost"
+                            size="icon-sm"
+                          >
+                            <TrashIcon />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
+          </CardAction>
         </CardHeader>
         <CardContent className="w-[350px] lg:w-[600px]">
           <form id="new-form" onSubmit={handlers.onNewFormSubmit}>

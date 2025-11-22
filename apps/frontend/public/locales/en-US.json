@@ -8,6 +8,8 @@
   "action.submit": "Submit",
   "dialog.logout.description": "Are you sure want to logout?",
   "dialog.logout.title": "Logout",
+  "dialog.smt-lines.description": "A list of your recent records",
+  "dialog.smt-lines.title": "SMT Lines",
   "field.board.label": "Board",
   "field.board.not-found": "No board found.",
   "field.board.placeholder": "Select board",
@@ -33,5 +35,13 @@
   "validation.non-empty": "Required",
   "validation.number": "Must be a number",
   "validation.user-code.max": "Too small. Max length is 12",
-  "validation.user-code.min": "Too small. Min length is 6"
+  "validation.user-code.min": "Too small. Min length is 6",
+  "table.smt-lines.board": "Board",
+  "table.smt-lines.start-at": "Start At",
+  "table.smt-lines.end-at": "End At",
+  "table.smt-lines.comment": "Comment",
+  "table.smt-lines.count": "Count",
+  "toast.deleted-smt": "Successfully deleted SMT Line",
+  "toast.created-smt": "Successfully created new record"
+
 }

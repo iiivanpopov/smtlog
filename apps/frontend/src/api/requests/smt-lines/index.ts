@@ -1,5 +1,5 @@
 import type { ApiFetchesRequest, FetchesResponse } from '@siberiacancode/fetches'
-import type { CreateSMTLineData, GetSMTLinesData, SMTLineDTO } from '@smtlog/backend'
+import type { CreateSMTLineData, DeleteSMTLineData, GetSMTLinesData, SMTLineDTO } from '@smtlog/backend'
 import type { ApiResponse } from '@/api'
 import { $api } from '@/api'
 
@@ -8,3 +8,6 @@ export const getSMTLines: ApiFetchesRequest<GetSMTLinesData, FetchesResponse<Get
 
 export type CreateSMTLineResponse = ApiResponse
 export const createSMTLine: ApiFetchesRequest<CreateSMTLineData, FetchesResponse<CreateSMTLineResponse>> = ({ params, config }) => $api.post('/smt-lines', params, config)
+
+export type DeleteSMTLineResponse = ApiResponse
+export const deleteSMTLine: ApiFetchesRequest<DeleteSMTLineData, FetchesResponse<DeleteSMTLineResponse>> = ({ params, config }) => $api.delete(`/smt-lines/${params.id}`, config)
