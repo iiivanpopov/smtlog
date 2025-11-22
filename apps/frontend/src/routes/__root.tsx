@@ -1,4 +1,4 @@
-import type { UserDTO } from '@smtlog/backend'
+import type { UserDTO } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getSessionQueryOptions } from '@/api'
 import { config } from '@/config'

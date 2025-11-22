@@ -1,5 +1,4 @@
-import type { DeleteUserData } from '@smtlog/backend'
-import type { MutationParams, MutationSettings } from '@/api'
+import type { DeleteUserData, MutationParams, MutationSettings } from '@/api'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
 import { deleteUser } from '@/api'
 

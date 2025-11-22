@@ -1,5 +1,4 @@
-import type { RegisterData } from '@smtlog/backend'
-import type { MutationParams, MutationSettings } from '@/api'
+import type { MutationParams, MutationSettings, RegisterData } from '@/api'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
 import { register } from '@/api'
 

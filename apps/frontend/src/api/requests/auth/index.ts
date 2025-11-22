@@ -1,6 +1,5 @@
 import type { ApiFetchesRequest, FetchesResponse } from '@siberiacancode/fetches'
-import type { LoginData, RegisterData, UserDTO } from '@smtlog/backend'
-import type { ApiResponse } from '@/api'
+import type { ApiResponse, LoginData, RegisterData, UserDTO } from '@/api'
 import { $api } from '@/api'
 
 export type LoginResponse = ApiResponse<{ token: string }>

@@ -1,5 +1,4 @@
-import type { GetUsersData } from '@smtlog/backend'
-import type { QuerySettings } from '@/api'
+import type { GetUsersData, QuerySettings } from '@/api'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getUsers } from '@/api'
 

@@ -1,5 +1,4 @@
-import type { CreateSMTLineData } from '@smtlog/backend'
-import type { MutationParams, MutationSettings } from '@/api'
+import type { CreateSMTLineData, MutationParams, MutationSettings } from '@/api'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
 import { createSMTLine } from '@/api'
 

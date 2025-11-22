@@ -1,5 +1,4 @@
-import type { LoginData } from '@smtlog/backend'
-import type { MutationParams, MutationSettings } from '@/api'
+import type { LoginData, MutationParams, MutationSettings } from '@/api'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
 import { login } from '@/api'
 

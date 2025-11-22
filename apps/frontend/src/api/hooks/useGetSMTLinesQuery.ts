@@ -1,5 +1,4 @@
-import type { GetSMTLinesData } from '@smtlog/backend'
-import type { QuerySettings } from '@/api'
+import type { GetSMTLinesData, QuerySettings } from '@/api'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getSMTLines } from '@/api'
 
