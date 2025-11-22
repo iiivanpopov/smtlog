@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { useSearch } from '@tanstack/react-router'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { getUsersQueryOptions, useDeleteUserMutation, useRegisterMutation } from '@/api'
@@ -12,6 +12,7 @@ export function useAdminPage() {
   const { t } = useI18n()
 
   const search = useSearch({ from: '/admin' })
+  const navigate = useNavigate({ from: '/admin' })
 
   const registerForm = useForm({
     defaultValues: registerUserFormDefaultValues,
@@ -24,6 +25,7 @@ export function useAdminPage() {
     total: getUsersQuery.data.data.meta.total,
     initialPageSize: 10,
     initialPage: search.page,
+    onChange: ({ page }) => navigate({ search: { page } }),
   })
 
   const registerMutation = useRegisterMutation()

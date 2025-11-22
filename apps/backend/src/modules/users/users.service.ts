@@ -21,7 +21,7 @@ export async function getUsers(payload: GetUsersData) {
     .get()
 
   return {
-    meta: { total: usersCount },
+    meta: { total: usersCount?.count },
     users: users.map(toUserDTO),
   }
 }

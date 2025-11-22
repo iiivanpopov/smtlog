@@ -1,11 +1,12 @@
-import { ListIcon, TrashIcon } from 'lucide-react'
+import { ChevronLeftIcon, ChevronRightIcon, ListIcon, TrashIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldError, FieldLabel, FieldSet, Header, I18nText, Input, Layout, Spinner } from '@/components'
+import { Button, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Field, FieldError, FieldLabel, FieldSet, Header, I18nText, Input, Layout, Pagination, PaginationContent, PaginationItem, PaginationLink, Spinner } from '@/components'
+import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useAdminPage } from '../-hooks/use-admin-page'
 
 export function AdminPage() {
-  const { state, handlers, queries, mutations } = useAdminPage()
+  const { state, handlers, queries, mutations, pagination } = useAdminPage()
   const { t } = useI18n()
 
   return (
@@ -23,7 +24,7 @@ export function AdminPage() {
                   <ListIcon />
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="flex flex-col max-h-[85vh] h-[85vh]">
                 <DialogHeader>
                   <DialogTitle>
                     <I18nText id="dialog.users.title" />
@@ -33,7 +34,7 @@ export function AdminPage() {
                   </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-3">
+                <div className="space-y-3 flex-1 overflow-auto">
                   {queries.getUsers.data.data.users.map(user => (
                     <Card key={user.id} className="p-4">
                       <div className="flex items-center justify-between">
@@ -58,6 +59,52 @@ export function AdminPage() {
                     </Card>
                   ))}
                 </div>
+
+                <DialogFooter>
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem className={cn(pagination.isFirstPage && 'invisible')}>
+                        <PaginationLink asChild>
+                          <Button onClick={() => pagination.setPage(pagination.page - 1)} variant="ghost" size="icon">
+                            <ChevronLeftIcon />
+                          </Button>
+                        </PaginationLink>
+                      </PaginationItem>
+
+                      <PaginationItem className={cn(pagination.page === 1 && 'invisible')}>
+                        <PaginationLink asChild>
+                          <Button onClick={() => pagination.setPage(1)} variant="ghost" size="icon">
+                            1
+                          </Button>
+                        </PaginationLink>
+                      </PaginationItem>
+
+                      <PaginationItem className={cn(pagination.pageCount === 1 && 'invisible')}>
+                        <PaginationLink asChild isActive={true}>
+                          <span>
+                            {pagination.page}
+                          </span>
+                        </PaginationLink>
+                      </PaginationItem>
+
+                      <PaginationItem className={cn(pagination.pageCount === pagination.page && 'invisible')}>
+                        <PaginationLink asChild>
+                          <Button onClick={() => pagination.setPage(pagination.pageCount)} variant="ghost" size="icon">
+                            {pagination.pageCount}
+                          </Button>
+                        </PaginationLink>
+                      </PaginationItem>
+
+                      <PaginationItem className={cn(pagination.isLastPage && 'invisible')}>
+                        <PaginationLink asChild>
+                          <Button onClick={() => pagination.setPage(pagination.page + 1)} variant="ghost" size="icon">
+                            <ChevronRightIcon />
+                          </Button>
+                        </PaginationLink>
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </DialogFooter>
               </DialogContent>
             </Dialog>
           </CardAction>

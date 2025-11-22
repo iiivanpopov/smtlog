@@ -23,9 +23,7 @@ export async function getSMTLines(userId: number, payload: GetSMTLinesData) {
 
   return {
     smtLines,
-    meta: {
-      total: smtLinesCount?.count,
-    },
+    meta: { total: smtLinesCount?.count },
   }
 }
 

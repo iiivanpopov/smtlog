@@ -47,5 +47,7 @@
   "table.smt-lines.count": "Count",
   "table.user.name": "Name",
   "toast.deleted-smt": "Successfully deleted SMT Line",
-  "toast.created-smt": "Successfully created new record"
+  "toast.created-smt": "Successfully created new record",
+  "toast.deleted-user": "Successfully deleted user",
+  "toast.created-user": "Successfully created user"
 }
