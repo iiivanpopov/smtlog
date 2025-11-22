@@ -124,6 +124,7 @@ export function AdminPage() {
                     <Input
                       {...field}
                       id={field.name}
+                      placeholder={t('field.code.placeholder')}
                       aria-invalid={fieldState.invalid}
                     />
 
@@ -142,6 +143,7 @@ export function AdminPage() {
 
                     <Input
                       {...field}
+                      placeholder={t('field.name.placeholder')}
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                     />

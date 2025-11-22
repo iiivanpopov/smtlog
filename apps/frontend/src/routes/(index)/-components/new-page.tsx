@@ -251,7 +251,7 @@ export function NewPage() {
                   render={({ field: { value, ...field }, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.label.count" />
+                        <I18nText id="field.count.label" />
                       </FieldLabel>
                       <Input
                         {...field}

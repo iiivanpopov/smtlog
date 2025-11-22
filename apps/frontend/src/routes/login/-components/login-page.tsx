@@ -24,7 +24,7 @@ export function LoginPage() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>
-                    <I18nText id="field.label.code" />
+                    <I18nText id="field.code.label" />
                   </FieldLabel>
                   <Input
                     placeholder="725139"
