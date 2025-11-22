@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSuspenseQueries } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { getDictionaryOptions, getSMTLinesOptions, useCreateSMTLineMutation, useDeleteSMTLineMutation } from '@/api'
+import { getDictionaryQueryOptions, getSMTLinesQueryOptions, useCreateSMTLineMutation, useDeleteSMTLineMutation } from '@/api'
 import { useDisclosure } from '@/hooks'
 import { timeToSeconds } from '@/lib'
 import { queryClient, useI18n } from '@/providers'
@@ -13,8 +13,8 @@ export function useNewPage() {
 
   const [smtLinesQuery, dictionaryQuery] = useSuspenseQueries({
     queries: [
-      getSMTLinesOptions({ limit: 10, page: 1 }),
-      getDictionaryOptions({ options: { staleTime: 5 * 60 * 1000 } }),
+      getSMTLinesQueryOptions({ limit: 10, page: 1 }),
+      getDictionaryQueryOptions({ options: { staleTime: 5 * 60 * 1000 } }),
     ],
   })
 
@@ -50,7 +50,7 @@ export function useNewPage() {
       params: { id },
     })
 
-    queryClient.invalidateQueries(getSMTLinesOptions({ limit: 10, page: 1 }))
+    queryClient.invalidateQueries(getSMTLinesQueryOptions({ limit: 10, page: 1 }))
 
     toast.success(t('toast.deleted-smt'))
   }

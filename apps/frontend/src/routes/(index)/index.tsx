@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { getDictionaryOptions, getSMTLinesOptions } from '@/api'
+import { getDictionaryQueryOptions, getSMTLinesQueryOptions } from '@/api'
 import { queryClient } from '@/providers'
 import { NewPage } from './-components/new-page'
 
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/(index)/')({
       throw redirect({ to: '/admin' })
   },
   loader: () => [
-    queryClient.ensureQueryData(getSMTLinesOptions({ limit: 10, page: 1 })),
-    queryClient.ensureQueryData(getDictionaryOptions({ options: { staleTime: 5 * 60 * 1000 } })),
+    queryClient.ensureQueryData(getSMTLinesQueryOptions({ limit: 10, page: 1 })),
+    queryClient.ensureQueryData(getDictionaryQueryOptions({ options: { staleTime: 5 * 60 * 1000 } })),
   ],
 })
