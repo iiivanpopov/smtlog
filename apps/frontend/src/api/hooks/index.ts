@@ -1,3 +1,4 @@
+export * from './useCreateSMTLine'
 export * from './useGetDictionary'
 export * from './useGetSession'
 export * from './useGetSMTLines'

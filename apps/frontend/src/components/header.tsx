@@ -53,13 +53,11 @@ export function Header() {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent>
-              <DropdownMenuLabel>
-                <I18nText id="logged-in-as" />
-                {' '}
-                <b>{context.user?.name}</b>
+              <DropdownMenuLabel className="font-semibold">
+                {context.user?.name}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logoutDialog.open}>
+              <DropdownMenuItem className="text-destructive" onClick={logoutDialog.open}>
                 <I18nText id="action.logout" />
               </DropdownMenuItem>
             </DropdownMenuContent>

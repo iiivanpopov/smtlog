@@ -1,8 +1,9 @@
-import type { LoginParams, MutationParams, MutationSettings } from '@/api'
+import type { LoginData } from '@smtlog/backend'
+import type { MutationParams, MutationSettings } from '@/api'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
 import { login } from '@/api'
 
-export type LoginMutationParams = MutationParams<LoginParams>
+export type LoginMutationParams = MutationParams<LoginData>
 
 export function loginMutationOptions(settings: MutationSettings<LoginMutationParams, typeof login>) {
   return mutationOptions({

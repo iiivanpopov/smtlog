@@ -3,8 +3,9 @@ import { useSuspenseQueries } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { getDictionaryOptions, getSMTLinesOptions } from '@/api'
+import { getDictionaryOptions, getSMTLinesOptions, useCreateSMTLineMutation } from '@/api'
 import { useDisclosure, useOffsetPagination } from '@/hooks'
+import { timeToSeconds } from '@/lib'
 import { newFormDefaultValues, NewFormSchema } from '../-schemas/new-form.schema'
 
 export function useNewPage() {
@@ -32,8 +33,19 @@ export function useNewPage() {
     initialPage: page,
   })
 
+  const createSMTLineMutation = useCreateSMTLineMutation()
+
   const onNewFormSubmit = newForm.handleSubmit(async (data) => {
-    toast(JSON.stringify(data))
+    await createSMTLineMutation.mutateAsync({
+      params: {
+        board: data.board,
+        count: data.count,
+        comment: data.comment || undefined,
+        timeStart: data.timestampStart.date!.getTime() / 1000 + timeToSeconds(data.timestampStart.time),
+        timeEnd: data.timestampEnd.date!.getTime() / 1000 + timeToSeconds(data.timestampEnd.time),
+      },
+    })
+
     toast.success('Successfully created a new record')
     newForm.reset()
   })

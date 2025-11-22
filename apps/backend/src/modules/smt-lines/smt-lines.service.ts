@@ -23,10 +23,11 @@ export async function getSMTLines(userId: number, payload: GetSMTLinesData) {
   }
 }
 
-export async function createSMTLine(userId: number, { timeEnd, timeStart, ...payload }: CreateSMTLineData) {
+export async function createSMTLine(userId: number, { timeEnd, timeStart, comment, ...payload }: CreateSMTLineData) {
   await db.insert(smtLinesTable).values({
     userId,
     ...payload,
+    comment: comment || undefined,
     timeEnd: new Date(timeEnd * 1000),
     timeStart: new Date(timeStart * 1000),
   })

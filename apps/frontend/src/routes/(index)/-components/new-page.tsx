@@ -1,35 +1,6 @@
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import {
-  Button,
-  Calendar,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-  Header,
-  I18nText,
-  Input,
-  Layout,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Textarea,
-} from '@/components'
+import { Button, Calendar, Card, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nText, Input, Layout, Popover, PopoverContent, PopoverTrigger, Textarea } from '@/components'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
