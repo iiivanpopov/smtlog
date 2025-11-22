@@ -1,20 +1,29 @@
 import type { GetUsersData } from './schemas'
-import { eq, like } from 'drizzle-orm'
+import { and, count, desc, eq, like } from 'drizzle-orm'
 import { db, toUserDTO, usersTable } from '@/database'
 
 export async function getUsers(payload: GetUsersData) {
   const users = db.select()
     .from(usersTable)
-    .offset(payload.page * payload.limit)
+    .offset((payload.page - 1) * payload.limit)
     .limit(payload.limit)
     .where(
-      payload.search
-        ? like(usersTable.name, `%${payload.search}%`)
-        : undefined,
+      and(
+        payload.search ? like(usersTable.name, `%${payload.search}%`) : undefined,
+        eq(usersTable.role, 'user'),
+      ),
     )
+    .orderBy(desc(usersTable.createdAt))
     .all()
 
-  return users.map(toUserDTO)
+  const usersCount = db.select({ count: count() })
+    .from(usersTable)
+    .get()
+
+  return {
+    meta: { total: usersCount },
+    users: users.map(toUserDTO),
+  }
 }
 
 export async function deleteUser(id: number) {

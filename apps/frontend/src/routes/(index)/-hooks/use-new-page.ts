@@ -40,6 +40,7 @@ export function useNewPage() {
         timeEnd: data.timestampEnd.date!.getTime() / 1000 + timeToSeconds(data.timestampEnd.time),
       },
     })
+    queryClient.invalidateQueries(getSMTLinesQueryOptions({ limit: 10, page: 1 }))
 
     toast.success(t('toast.created-smt'))
     newForm.reset()
@@ -57,13 +58,7 @@ export function useNewPage() {
 
   return {
     queries: { dictionary: dictionaryQuery, smtLines: smtLinesQuery },
-    state: {
-      newForm,
-      boardsSelect,
-      dateStartPicker,
-      dateEndPicker,
-      smtLinesModal,
-    },
+    state: { newForm, boardsSelect, dateStartPicker, dateEndPicker, smtLinesModal },
     mutations: { createSMTLine: createSMTLineMutation, deleteSMTLine: deleteSMTLineMutation },
     handlers: { onNewFormSubmit, onDeleteSMTLine },
   }

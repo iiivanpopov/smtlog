@@ -14,9 +14,9 @@ usersRouter.get(
   async (c) => {
     const query = c.req.valid('query')
 
-    const users = await getUsers(query)
+    const data = await getUsers(query)
 
-    return c.json(wrapSuccess({ users }), 200)
+    return c.json(wrapSuccess(data), 200)
   },
 )
 
