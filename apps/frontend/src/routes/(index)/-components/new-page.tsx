@@ -1,12 +1,12 @@
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Calendar, Card, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nText, Input, Layout, Popover, PopoverContent, PopoverTrigger, Textarea } from '@/components'
+import { Button, Calendar, Card, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nText, Input, Layout, Popover, PopoverContent, PopoverTrigger, Spinner, Textarea } from '@/components'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
 
 export function NewPage() {
-  const { state, handlers, queries } = useNewPage()
+  const { state, handlers, queries, mutations } = useNewPage()
   const { t } = useI18n()
 
   return (
@@ -262,8 +262,9 @@ export function NewPage() {
             type="submit"
             form="new-form"
             className="w-full"
-            disabled={!state.newForm.formState.isValid && state.newForm.formState.isSubmitted}
+            disabled={mutations.createSMTLine.isPending || !state.newForm.formState.isValid}
           >
+            {mutations.createSMTLine.isPending && <Spinner />}
             <I18nText id="action.submit" />
           </Button>
         </CardFooter>

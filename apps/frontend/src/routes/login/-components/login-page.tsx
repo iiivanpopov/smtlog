@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form'
-import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Field, FieldDescription, FieldError, FieldLabel, Header, I18nText, Input, Layout } from '@/components'
+import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Field, FieldDescription, FieldError, FieldLabel, Header, I18nText, Input, Layout, Spinner } from '@/components'
 import { useI18n } from '@/providers'
 import { useLoginPage } from '../-hooks/use-login-page'
 
@@ -49,6 +49,7 @@ export function LoginPage() {
             form="login-form"
             disabled={mutations.login.isPending || !state.loginForm.formState.isValid}
           >
+            {mutations.login.isPending && <Spinner />}
             <I18nText id="action.submit" />
           </Button>
         </CardFooter>

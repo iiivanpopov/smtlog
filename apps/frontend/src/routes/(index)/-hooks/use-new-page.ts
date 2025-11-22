@@ -26,6 +26,7 @@ export function useNewPage() {
   const boardsSelect = useDisclosure()
   const dateStartPicker = useDisclosure()
   const dateEndPicker = useDisclosure()
+  const smtLinesModal = useDisclosure()
 
   const pagination = useOffsetPagination({
     total: smtLinesQuery.data.data.meta.total,
@@ -60,9 +61,10 @@ export function useNewPage() {
       boardsSelect,
       dateStartPicker,
       dateEndPicker,
+      smtLinesModal,
     },
     pagination,
-    mutations: {},
+    mutations: { createSMTLine: createSMTLineMutation },
     handlers: { onNewFormSubmit },
   }
 }
