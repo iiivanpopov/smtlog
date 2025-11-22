@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { userCodeValidator } from '@/lib'
 
-export const RegisterUserFormSchema = z.object({
+export const RegisterFormSchema = z.object({
   code: userCodeValidator,
   name: z
     .string()
@@ -10,9 +10,9 @@ export const RegisterUserFormSchema = z.object({
     .transform(v => v.trim().replace(/\s+/g, ' ')),
 })
 
-export type RegisterUserFormData = z.infer<typeof RegisterUserFormSchema>
+export type RegisterFormData = z.infer<typeof RegisterFormSchema>
 
-export const registerUserFormDefaultValues: RegisterUserFormData = {
+export const registerFormDefaultValues: RegisterFormData = {
   code: '',
   name: '',
 }

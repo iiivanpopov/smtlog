@@ -3,10 +3,11 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { getUsersQueryOptions, useDeleteUserMutation, useRegisterMutation } from '@/api'
+import { getUsersQueryOptions, useDeleteUserMutation, useRegisterMutation, useSetSettingMutation } from '@/api'
+import { config } from '@/config'
 import { useOffsetPagination } from '@/hooks'
 import { queryClient, useI18n } from '@/providers'
-import { registerUserFormDefaultValues, RegisterUserFormSchema } from '../-schemas/register-user-schema'
+import { registerFormDefaultValues, RegisterFormSchema, sourceSettingFormDefaultValues, SourceSettingFormSchema } from '../-schemas'
 
 export function useAdminPage() {
   const { t } = useI18n()
@@ -15,8 +16,12 @@ export function useAdminPage() {
   const navigate = useNavigate({ from: '/admin' })
 
   const registerForm = useForm({
-    defaultValues: registerUserFormDefaultValues,
-    resolver: zodResolver(RegisterUserFormSchema),
+    defaultValues: registerFormDefaultValues,
+    resolver: zodResolver(RegisterFormSchema),
+  })
+  const sourceSettingForm = useForm({
+    defaultValues: sourceSettingFormDefaultValues,
+    resolver: zodResolver(SourceSettingFormSchema),
   })
 
   const getUsersQuery = useSuspenseQuery(getUsersQueryOptions({ limit: 10, page: search.page }))
@@ -30,6 +35,7 @@ export function useAdminPage() {
 
   const registerMutation = useRegisterMutation()
   const deleteUserMutation = useDeleteUserMutation()
+  const setSettingMutation = useSetSettingMutation()
 
   const onRegisterFormSubmit = registerForm.handleSubmit(async (data) => {
     await registerMutation.mutateAsync({ params: data })
@@ -48,11 +54,17 @@ export function useAdminPage() {
     toast.success(t('toast.deleted-user'))
   }
 
+  const onSourceSettingFormSubmit = sourceSettingForm.handleSubmit(async (data) => {
+    await setSettingMutation.mutateAsync({ params: { key: config.settings.externalDictionary, value: data.source } })
+
+    toast.success(t('toast.updated-source-setting'))
+  })
+
   return {
-    state: { registerForm },
-    handlers: { onRegisterFormSubmit, onDeleteUser },
+    state: { registerForm, sourceSettingForm },
+    handlers: { onRegisterFormSubmit, onDeleteUser, onSourceSettingFormSubmit },
     queries: { getUsers: getUsersQuery },
-    mutations: { register: registerMutation, deleteUser: deleteUserMutation },
+    mutations: { register: registerMutation, deleteUser: deleteUserMutation, setSetting: setSettingMutation },
     pagination,
   }
 }

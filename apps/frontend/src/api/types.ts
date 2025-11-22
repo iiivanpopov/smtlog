@@ -99,3 +99,8 @@ export interface GetUsersData {
   page: number
   limit: number
 }
+
+export interface SetSettingData {
+  key: string
+  value: string
+}
