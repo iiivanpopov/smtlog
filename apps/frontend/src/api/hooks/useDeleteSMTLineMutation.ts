@@ -13,6 +13,6 @@ export function deleteSMTLineMutationOptions(settings: MutationSettings<DeleteSM
   })
 }
 
-export function useDeleteSMTLineMutation(settings: MutationSettings<DeleteSMTLineMutationParams, typeof deleteSMTLine>) {
+export function useDeleteSMTLineMutation(settings: MutationSettings<DeleteSMTLineMutationParams, typeof deleteSMTLine> = {}) {
   return useMutation(deleteSMTLineMutationOptions(settings))
 }

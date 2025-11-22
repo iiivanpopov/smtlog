@@ -13,6 +13,6 @@ export function deleteUserMutationOptions(settings: MutationSettings<DeleteUserM
   })
 }
 
-export function useDeleteUserMutation(settings: MutationSettings<DeleteUserMutationParams, typeof deleteUser>) {
+export function useDeleteUserMutation(settings: MutationSettings<DeleteUserMutationParams, typeof deleteUser> = {}) {
   return useMutation(deleteUserMutationOptions(settings))
 }

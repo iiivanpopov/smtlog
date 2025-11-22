@@ -13,6 +13,6 @@ export function registerMutationOptions(settings: MutationSettings<RegisterMutat
   })
 }
 
-export function useRegisterMutation(settings: MutationSettings<RegisterMutationParams, typeof register>) {
+export function useRegisterMutation(settings: MutationSettings<RegisterMutationParams, typeof register> = {}) {
   return useMutation(registerMutationOptions(settings))
 }

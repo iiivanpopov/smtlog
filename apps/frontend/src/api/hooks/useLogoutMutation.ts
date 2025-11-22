@@ -4,9 +4,7 @@ import { logout } from '@/api'
 
 export type LogoutMutationParams = MutationParams<undefined>
 
-export function logoutMutationOptions(
-  settings: MutationSettings<LogoutMutationParams, typeof logout>,
-) {
+export function logoutMutationOptions(settings: MutationSettings<LogoutMutationParams, typeof logout>) {
   return mutationOptions({
     mutationKey: ['logout'],
     mutationFn: (params?: LogoutMutationParams) => logout({ config: { ...settings.config, ...params?.config } }),

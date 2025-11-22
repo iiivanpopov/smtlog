@@ -13,6 +13,6 @@ export function loginMutationOptions(settings: MutationSettings<LoginMutationPar
   })
 }
 
-export function useLoginMutation(settings: MutationSettings<LoginMutationParams, typeof login>) {
+export function useLoginMutation(settings: MutationSettings<LoginMutationParams, typeof login> = {}) {
   return useMutation(loginMutationOptions(settings))
 }
