@@ -59,9 +59,17 @@ git pull
 docker compose build
 ```
 
+## BUILDING
+
+```bash
+cd smtlog
+docker compose build
+```
+
 ## RUNNING
 
 ```bash
+cd smtlog
 docker compose up -d # -d === in background
 ```
 
