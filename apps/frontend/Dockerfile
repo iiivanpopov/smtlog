@@ -6,19 +6,17 @@ RUN bun i
 
 COPY . .
 
-ARG VITE_API_BASE_URL
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL 
-
+ENV VITE_API_BASE_URL=/api 
 RUN bun build:prod
 
 
 FROM nginx:1.29.3-alpine AS runner
-WORKDIR /usr/share/nginx/html
 
-RUN rm -rf ./*
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /app/dist ./
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
