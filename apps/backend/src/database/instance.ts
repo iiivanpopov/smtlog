@@ -17,5 +17,8 @@ if (config.env.production) {
     code: config.secrets.adminCode,
     name: 'Admin',
     role: 'admin',
-  }).onConflictDoNothing().then(() => logger.info('Seeded admin.'))
+  }).onConflictDoUpdate({
+    target: schema.usersTable.id,
+    set: { code: config.secrets.adminCode },
+  }).then(() => logger.info('Seeded admin.'))
 }
