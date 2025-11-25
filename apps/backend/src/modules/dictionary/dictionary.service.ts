@@ -22,6 +22,7 @@ export async function getDictionary(): Promise<Record<string, string[]>> {
 
   const { data, errors } = parseCSV(csv.trim(), {
     skipEmptyLines: true,
+    delimiter: ',',
   })
 
   if (errors.length > 0)
