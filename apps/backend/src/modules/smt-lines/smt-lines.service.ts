@@ -34,6 +34,13 @@ export async function createSMTLine(userId: number, { timeEnd, timeStart, commen
     comment: comment || undefined,
     timeEnd: new Date(timeEnd * 1000),
     timeStart: new Date(timeStart * 1000),
+    firstMPcb: payload.firstMPcb,
+    firstPcb: payload.firstPcb,
+    lastMPcb: payload.lastMPcb,
+    lastPcb: payload.lastPcb,
+    pcbSide: payload.pcbSide,
+    donePerShift: payload.donePerShift,
+    segmentsCount: payload.segmentsCount,
   })
 }
 

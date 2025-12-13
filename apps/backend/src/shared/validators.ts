@@ -24,8 +24,10 @@ export const settingsValueValidator = z
   .string()
   .min(1)
 
-export const paginationPageValidator = stringToNumberValidator.default(1)
-export const paginationLimitValidator = stringToNumberValidator.default(10)
+export const paginationPageValidator = stringToNumberValidator
+  .default(1)
+export const paginationLimitValidator = stringToNumberValidator
+  .default(10)
 
 export const smtLineBoardValidator = z
   .string()
@@ -40,3 +42,29 @@ export const smtLineTimeStartValidator = z
   .number()
 export const smtLineTimeEndValidator = z
   .number()
+export const smtLineFirstMPcbValidator = z
+  .number()
+  .int()
+  .min(1)
+export const smtLineFirstPcbValidator = z
+  .number()
+  .int()
+  .min(1)
+export const smtLineLastMPcbValidator = z
+  .number()
+  .int()
+  .min(1)
+export const smtLineLastPcbValidator = z
+  .number()
+  .int()
+  .min(1)
+export const smtLinePcbSideValidator = z
+  .enum(['T', 'B'])
+export const smtLineDonePerShiftValidator = z
+  .number()
+  .int()
+  .min(1)
+export const smtLineSegmentsCountValidator = z
+  .number()
+  .int()
+  .min(1)

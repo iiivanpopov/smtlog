@@ -1,5 +1,18 @@
 import { z } from 'zod'
-import { smtLineBoardValidator, smtLineCommentValidator, smtLineCountValidator, smtLineTimeEndValidator, smtLineTimeStartValidator } from '@/shared'
+import {
+  smtLineBoardValidator,
+  smtLineCommentValidator,
+  smtLineCountValidator,
+  smtLineDonePerShiftValidator,
+  smtLineFirstMPcbValidator,
+  smtLineFirstPcbValidator,
+  smtLineLastMPcbValidator,
+  smtLineLastPcbValidator,
+  smtLinePcbSideValidator,
+  smtLineSegmentsCountValidator,
+  smtLineTimeEndValidator,
+  smtLineTimeStartValidator,
+} from '@/shared'
 
 export const CreateSMTLineSchema = z.object({
   board: smtLineBoardValidator,
@@ -7,6 +20,13 @@ export const CreateSMTLineSchema = z.object({
   comment: smtLineCommentValidator,
   timeStart: smtLineTimeStartValidator,
   timeEnd: smtLineTimeEndValidator,
+  firstMPcb: smtLineFirstMPcbValidator,
+  firstPcb: smtLineFirstPcbValidator,
+  lastMPcb: smtLineLastMPcbValidator,
+  lastPcb: smtLineLastPcbValidator,
+  pcbSide: smtLinePcbSideValidator,
+  donePerShift: smtLineDonePerShiftValidator,
+  segmentsCount: smtLineSegmentsCountValidator,
 })
 
 export type CreateSMTLineData = z.infer<typeof CreateSMTLineSchema>
