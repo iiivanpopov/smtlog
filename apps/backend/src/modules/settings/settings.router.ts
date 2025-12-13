@@ -11,10 +11,10 @@ settingsRouter.use(sessionMiddleware(), roleMiddleware(['admin']))
 settingsRouter.put(
   '/',
   zValidator('json', SetSettingSchema),
-  async (c) => {
+  (c) => {
     const body = c.req.valid('json')
 
-    await setSetting(body)
+    setSetting(body)
 
     return c.json(wrapSuccess(), 200)
   },
@@ -23,10 +23,10 @@ settingsRouter.put(
 settingsRouter.get(
   '/:key',
   zValidator('param', GetSettingSchema),
-  async (c) => {
+  (c) => {
     const { key } = c.req.valid('param')
 
-    const setting = await getSetting(key)
+    const setting = getSetting(key)
 
     return c.json(wrapSuccess({ setting }), 200)
   },

@@ -11,11 +11,11 @@ smtLinesRouter.use(sessionMiddleware())
 smtLinesRouter.get(
   '/me',
   zValidator('query', GetSMTLinesSchema),
-  async (c) => {
+  (c) => {
     const user = c.get('user')
     const query = c.req.valid('query')
 
-    const data = await getSMTLines(user.id, query)
+    const data = getSMTLines(user.id, query)
 
     return c.json(wrapSuccess(data), 200)
   },
@@ -24,11 +24,11 @@ smtLinesRouter.get(
 smtLinesRouter.post(
   '/',
   zValidator('json', CreateSMTLineSchema),
-  async (c) => {
+  (c) => {
     const user = c.get('user')
     const body = c.req.valid('json')
 
-    await createSMTLine(user.id, body)
+    createSMTLine(user.id, body)
 
     return c.json(wrapSuccess(), 201)
   },
@@ -37,10 +37,10 @@ smtLinesRouter.post(
 smtLinesRouter.delete(
   '/:id',
   zValidator('param', DeleteSMTLineSchema),
-  async (c) => {
+  (c) => {
     const { id } = c.req.valid('param')
 
-    await deleteSMTLine(id)
+    deleteSMTLine(id)
 
     return c.json(wrapSuccess(), 200)
   },

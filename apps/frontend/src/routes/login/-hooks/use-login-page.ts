@@ -19,6 +19,7 @@ export function useLoginPage() {
     const response = await loginMutation.mutateAsync({ params: data })
 
     localStorage.setItem(config.localStorage.sessionToken, response.data.token)
+
     router.invalidate()
   })
 

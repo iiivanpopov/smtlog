@@ -7,15 +7,19 @@ const dictionaryRouter = factory.createApp()
 
 dictionaryRouter.use(sessionMiddleware())
 
-dictionaryRouter.get(
-  '/',
-  async (c) => {
-    const dictionary = await withCache(config.cache.dictionary, getDictionary, config.cache.dictionaryTTL)
+dictionaryRouter.get('/', async (c) => {
+  const dictionary = await withCache(
+    config.cache.dictionary,
+    getDictionary,
+    config.cache.dictionaryTTL,
+  )
 
-    return c.json(wrapSuccess(dictionary), 200, {
-      'Cache-Control': `public, max-age=${config.cache.dictionaryTTL}, stale-while-revalidate=30`,
-    })
-  },
-)
+  c.header(
+    'Cache-Control',
+    `public, max-age=${config.cache.dictionaryTTL}`,
+  )
+
+  return c.json(wrapSuccess(dictionary), 200)
+})
 
 export { dictionaryRouter }

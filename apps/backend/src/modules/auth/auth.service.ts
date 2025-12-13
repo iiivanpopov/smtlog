@@ -3,7 +3,7 @@ import { eq, or } from 'drizzle-orm'
 import { db, sessionsTable, usersTable } from '@/database'
 import { ApiException } from '@/lib'
 
-export async function login(code: string) {
+export function login(code: string) {
   const user = db.select()
     .from(usersTable)
     .where(eq(usersTable.code, code))
@@ -13,17 +13,18 @@ export async function login(code: string) {
 
   const token = crypto.randomUUID()
 
-  await db.insert(sessionsTable)
+  db.insert(sessionsTable)
     .values({ token, userId: user.id })
     .onConflictDoUpdate({
       target: sessionsTable.userId,
       set: { token },
     })
+    .run()
 
   return token
 }
 
-export async function register(payload: Pick<NewUser, 'name' | 'code'>) {
+export function register(payload: Pick<NewUser, 'name' | 'code'>) {
   const user = db.select()
     .from(usersTable)
     .where(or(
@@ -34,9 +35,9 @@ export async function register(payload: Pick<NewUser, 'name' | 'code'>) {
   if (user)
     throw ApiException.BadRequest()
 
-  await db.insert(usersTable).values(payload)
+  db.insert(usersTable).values(payload).run()
 }
 
-export async function logout(userId: number) {
-  await db.delete(sessionsTable).where(eq(sessionsTable.userId, userId))
+export function logout(userId: number) {
+  db.delete(sessionsTable).where(eq(sessionsTable.userId, userId)).run()
 }

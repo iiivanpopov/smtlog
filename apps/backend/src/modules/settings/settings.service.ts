@@ -3,16 +3,17 @@ import { eq } from 'drizzle-orm'
 import { db, settingsTable } from '@/database'
 import { ApiException } from '@/lib'
 
-export async function setSetting(payload: Omit<NewSetting, 'id'>) {
-  await db.insert(settingsTable)
+export function setSetting(payload: Omit<NewSetting, 'id'>) {
+  db.insert(settingsTable)
     .values(payload)
     .onConflictDoUpdate({
       set: { value: payload.value },
       target: settingsTable.key,
     })
+    .run()
 }
 
-export async function getSetting(key: string) {
+export function getSetting(key: string) {
   const setting = db.select()
     .from(settingsTable)
     .where(eq(settingsTable.key, key))

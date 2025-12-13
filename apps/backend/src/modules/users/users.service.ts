@@ -2,7 +2,7 @@ import type { GetUsersData } from './schemas'
 import { and, count, desc, eq, like } from 'drizzle-orm'
 import { db, toUserDTO, usersTable } from '@/database'
 
-export async function getUsers(payload: GetUsersData) {
+export function getUsers(payload: GetUsersData) {
   const users = db.select()
     .from(usersTable)
     .offset((payload.page - 1) * payload.limit)
@@ -26,6 +26,6 @@ export async function getUsers(payload: GetUsersData) {
   }
 }
 
-export async function deleteUser(id: number) {
-  await db.delete(usersTable).where(eq(usersTable.id, id))
+export function deleteUser(id: number) {
+  db.delete(usersTable).where(eq(usersTable.id, id)).run()
 }

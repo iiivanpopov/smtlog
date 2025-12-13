@@ -2,7 +2,7 @@ import type { CreateSMTLineData, GetSMTLinesData } from './schemas'
 import { and, count, desc, eq, gt } from 'drizzle-orm'
 import { db, smtLinesTable } from '@/database'
 
-export async function getSMTLines(userId: number, payload: GetSMTLinesData) {
+export function getSMTLines(userId: number, payload: GetSMTLinesData) {
   const smtLines = db.select()
     .from(smtLinesTable)
     .offset((payload.page - 1) * payload.limit)
@@ -27,23 +27,16 @@ export async function getSMTLines(userId: number, payload: GetSMTLinesData) {
   }
 }
 
-export async function createSMTLine(userId: number, { timeEnd, timeStart, comment, ...payload }: CreateSMTLineData) {
-  await db.insert(smtLinesTable).values({
+export function createSMTLine(userId: number, { timeEnd, timeStart, comment, ...payload }: CreateSMTLineData) {
+  db.insert(smtLinesTable).values({
     userId,
     ...payload,
     comment: comment || undefined,
     timeEnd: new Date(timeEnd * 1000),
     timeStart: new Date(timeStart * 1000),
-    firstMPcb: payload.firstMPcb,
-    firstPcb: payload.firstPcb,
-    lastMPcb: payload.lastMPcb,
-    lastPcb: payload.lastPcb,
-    pcbSide: payload.pcbSide,
-    donePerShift: payload.donePerShift,
-    segmentsCount: payload.segmentsCount,
-  })
+  }).run()
 }
 
-export async function deleteSMTLine(id: number) {
-  await db.delete(smtLinesTable).where(eq(smtLinesTable.id, id))
+export function deleteSMTLine(id: number) {
+  db.delete(smtLinesTable).where(eq(smtLinesTable.id, id)).run()
 }

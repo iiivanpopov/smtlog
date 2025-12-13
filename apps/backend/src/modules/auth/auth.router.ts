@@ -10,7 +10,7 @@ const authRouter = factory.createApp()
 authRouter.get(
   '/session',
   sessionMiddleware(),
-  async (c) => {
+  (c) => {
     const user = c.get('user')
 
     return c.json(wrapSuccess({ user: toUserDTO(user) }), 200)
@@ -20,10 +20,10 @@ authRouter.get(
 authRouter.post(
   '/login',
   zValidator('json', LoginSchema),
-  async (c) => {
+  (c) => {
     const body = c.req.valid('json')
 
-    const token = await login(body.code)
+    const token = login(body.code)
 
     return c.json(wrapSuccess({ token }), 200)
   },
@@ -34,10 +34,10 @@ authRouter.post(
   sessionMiddleware(),
   roleMiddleware(['admin']),
   zValidator('json', RegisterSchema),
-  async (c) => {
+  (c) => {
     const body = c.req.valid('json')
 
-    await register(body)
+    register(body)
 
     return c.json(wrapSuccess(), 201)
   },
@@ -46,10 +46,10 @@ authRouter.post(
 authRouter.post(
   '/logout',
   sessionMiddleware(),
-  async (c) => {
+  (c) => {
     const user = c.get('user')
 
-    await logout(user.id)
+    logout(user.id)
 
     return c.json(wrapSuccess(), 200)
   },

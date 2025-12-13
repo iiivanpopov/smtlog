@@ -11,10 +11,10 @@ usersRouter.use(sessionMiddleware(), roleMiddleware(['admin']))
 usersRouter.get(
   '/',
   zValidator('query', GetUsersSchema),
-  async (c) => {
+  (c) => {
     const query = c.req.valid('query')
 
-    const data = await getUsers(query)
+    const data = getUsers(query)
 
     return c.json(wrapSuccess(data), 200)
   },
@@ -23,10 +23,10 @@ usersRouter.get(
 usersRouter.delete(
   '/:id',
   zValidator('param', DeleteUserSchema),
-  async (c) => {
+  (c) => {
     const { id } = c.req.valid('param')
 
-    await deleteUser(id)
+    deleteUser(id)
 
     return c.json(wrapSuccess(), 200)
   },
