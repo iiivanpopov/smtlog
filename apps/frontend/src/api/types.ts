@@ -52,6 +52,13 @@ export interface SMTLineDTO {
   count: number
   timeStart: Date
   timeEnd: Date
+  firstMPcb: number
+  firstPcb: number
+  lastMPcb: number
+  lastPcb: number
+  pcbSide: 'T' | 'B'
+  donePerShift: number
+  segmentsCount: number
   createdAt: Date
 }
 
@@ -79,6 +86,13 @@ export interface CreateSMTLineData {
   comment?: string | null
   timeStart: number
   timeEnd: number
+  firstMPcb: number
+  firstPcb: number
+  lastMPcb: number
+  lastPcb: number
+  pcbSide: 'T' | 'B'
+  donePerShift: number
+  segmentsCount: number
 }
 
 export interface DeleteSMTLineData {

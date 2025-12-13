@@ -47,11 +47,32 @@ export function NewPage() {
                         <TableHead className="min-w-[130px]">
                           <I18nText id="table.smt-lines.end-at" />
                         </TableHead>
-                        <TableHead className="min-w-[120px]">
-                          <I18nText id="table.smt-lines.comment" />
-                        </TableHead>
                         <TableHead className="w-16 text-center">
                           <I18nText id="table.smt-lines.count" />
+                        </TableHead>
+                        <TableHead className="w-20 text-center">
+                          <I18nText id="field.pcb-side.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.first-m-pcb.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.first-pcb.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.last-m-pcb.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.last-pcb.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.done-per-shift.label" />
+                        </TableHead>
+                        <TableHead className="w-24 text-center">
+                          <I18nText id="field.segments-count.label" />
+                        </TableHead>
+                        <TableHead className="min-w-[120px]">
+                          <I18nText id="table.smt-lines.comment" />
                         </TableHead>
                         <TableHead className="w-16"></TableHead>
                       </TableRow>
@@ -77,6 +98,30 @@ export function NewPage() {
                             <p><I18nDate date={smtLine.timeEnd} /></p>
                             <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeEnd} /></p>
                           </TableCell>
+                          <TableCell className="text-center font-medium">
+                            {smtLine.count}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.pcbSide}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.firstMPcb}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.firstPcb}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.lastMPcb}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.lastPcb}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.donePerShift}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {smtLine.segmentsCount}
+                          </TableCell>
                           <TableCell>
                             {smtLine.comment && (
                               <Tooltip>
@@ -91,9 +136,6 @@ export function NewPage() {
                             {!smtLine.comment && (
                               <span className="text-muted-foreground">-</span>
                             )}
-                          </TableCell>
-                          <TableCell className="text-center font-medium">
-                            {smtLine.count}
                           </TableCell>
                           <TableCell className="text-right">
                             <Button
@@ -137,6 +179,57 @@ export function NewPage() {
                             </p>
                             <p className="text-sm"><I18nDate date={smtLine.timeEnd} /></p>
                             <p className="text-xs text-muted-foreground"><I18nTime date={smtLine.timeEnd} /></p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.first-m-pcb.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.firstMPcb}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.first-pcb.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.firstPcb}</p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.last-m-pcb.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.lastMPcb}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.last-pcb.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.lastPcb}</p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-3">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.pcb-side.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.pcbSide}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.done-per-shift.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.donePerShift}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">
+                              <I18nText id="field.segments-count.label" />
+                            </p>
+                            <p className="text-sm font-medium">{smtLine.segmentsCount}</p>
                           </div>
                         </div>
 
@@ -512,7 +605,7 @@ export function NewPage() {
                         <I18nText id="field.pcb-side.label" />
                       </FieldLabel>
                       <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger size="sm" className="w-full">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>

@@ -94,7 +94,7 @@ export function Header() {
         {theme.value === 'light' && <SunIcon />}
       </Button>
       <Select value={i18n.locale} onValueChange={onLocaleChange}>
-        <SelectTrigger>
+        <SelectTrigger size="sm">
           {LOCALES.find(locale => locale.value === i18n.locale)!.label}
         </SelectTrigger>
         <SelectContent>
