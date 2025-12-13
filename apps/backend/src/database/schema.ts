@@ -59,6 +59,13 @@ export const smtLinesTable = sqliteTable('smt_lines', {
   count: int().notNull(),
   timeStart: int('time_start', { mode: 'timestamp' }).notNull(),
   timeEnd: int('time_end', { mode: 'timestamp' }).notNull(),
+  firstMPcb: int('first_m_pcb').notNull().default(0),
+  firstPcb: int('first_pcb').notNull().default(0),
+  lastMPcb: int('last_m_pcb').notNull().default(0),
+  lastPcb: int('last_pcb').notNull().default(0),
+  pcbSide: text('pcb_side', { enum: ['T', 'B'] }).notNull().default('T'),
+  donePerShift: int('done_per_shift').notNull().default(0),
+  segmentsCount: int('segments_count').notNull().default(0),
   createdAt: int('created_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
