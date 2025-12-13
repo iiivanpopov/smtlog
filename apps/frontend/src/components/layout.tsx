@@ -6,7 +6,7 @@ export interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="flex py-10 flex-col justify-center items-center min-h-screen">
       {children}
     </div>
   )

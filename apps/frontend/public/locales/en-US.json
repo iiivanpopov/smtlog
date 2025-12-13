@@ -55,5 +55,14 @@
   "toast.created-smt": "Successfully created new record",
   "toast.deleted-user": "Successfully deleted user",
   "toast.created-user": "Successfully created user",
-  "updated-source-setting": "Updated source setting"
+  "updated-source-setting": "Updated source setting",
+  "field.first-m-pcb.label": "First M PCB",
+  "field.first-pcb.label": "First PCB",
+  "field.last-m-pcb.label": "Last M PCB",
+  "field.last-pcb.label": "Last PCB",
+  "field.pcb-side.label": "PCB Side",
+  "field.pcb-side.top": "Top (T)",
+  "field.pcb-side.bottom": "Bottom (B)",
+  "field.done-per-shift.label": "Done per Shift",
+  "field.segments-count.label": "Segments Count"
 }

@@ -1,6 +1,6 @@
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ListIcon, TrashIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
+import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
@@ -24,7 +24,7 @@ export function NewPage() {
                   <ListIcon />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] lg:max-w-[800px] max-h-[85vh] overflow-hidden flex flex-col">
+              <DialogContent className="max-w-[95vw] md:max-w-[800px] max-h-[85vh] overflow-hidden flex flex-col">
                 <DialogHeader>
                   <DialogTitle>
                     <I18nText id="dialog.smt-lines.title" />
@@ -34,7 +34,7 @@ export function NewPage() {
                   </DialogDescription>
                 </DialogHeader>
 
-                <div className="hidden lg:block overflow-auto flex-1">
+                <div className="hidden md:block overflow-auto flex-1">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -112,7 +112,7 @@ export function NewPage() {
                   </Table>
                 </div>
 
-                <div className="lg:hidden overflow-auto flex-1 space-y-3 px-1">
+                <div className="md:hidden overflow-auto flex-1 space-y-3 px-1">
                   {queries.smtLines.data.data.smtLines.map(smtLine => (
                     <Card key={smtLine.id} className="p-4">
                       <div className="space-y-3">
@@ -175,9 +175,9 @@ export function NewPage() {
             </Dialog>
           </CardAction>
         </CardHeader>
-        <CardContent className="w-[350px] lg:w-[600px]">
+        <CardContent className="w-[350px] md:w-[600px]">
           <form id="new-form" onSubmit={handlers.onNewFormSubmit}>
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <FieldGroup>
                 <Controller
                   name="board"
@@ -269,7 +269,7 @@ export function NewPage() {
                   name="comment"
                   control={state.newForm.control}
                   render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
+                    <Field data-invalid={fieldState.invalid} className="h-full flex flex-col">
                       <FieldContent>
                         <FieldLabel htmlFor={field.name}>
                           <I18nText id="field.comment.label" />
@@ -284,6 +284,7 @@ export function NewPage() {
                         placeholder={t('field.comment.placeholder')}
                         id={field.name}
                         rows={3}
+                        className="flex-1"
                         aria-invalid={fieldState.invalid}
                       />
 
@@ -293,7 +294,7 @@ export function NewPage() {
                 />
               </FieldGroup>
 
-              <FieldSeparator className="lg:hidden" />
+              <FieldSeparator className="md:hidden" />
 
               <FieldGroup>
                 <Field>
@@ -409,6 +410,166 @@ export function NewPage() {
                     />
                   </div>
                 </Field>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Controller
+                    name="firstMPcb"
+                    control={state.newForm.control}
+                    render={({ field: { value, ...field }, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          <I18nText id="field.first-m-pcb.label" />
+                        </FieldLabel>
+                        <Input
+                          {...field}
+                          value={String(value)}
+                          type="number"
+                          min={0}
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                      </Field>
+                    )}
+                  />
+
+                  <Controller
+                    name="firstPcb"
+                    control={state.newForm.control}
+                    render={({ field: { value, ...field }, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          <I18nText id="field.first-pcb.label" />
+                        </FieldLabel>
+                        <Input
+                          {...field}
+                          value={String(value)}
+                          type="number"
+                          min={0}
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                      </Field>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Controller
+                    name="lastMPcb"
+                    control={state.newForm.control}
+                    render={({ field: { value, ...field }, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          <I18nText id="field.last-m-pcb.label" />
+                        </FieldLabel>
+                        <Input
+                          {...field}
+                          value={String(value)}
+                          type="number"
+                          min={0}
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                      </Field>
+                    )}
+                  />
+
+                  <Controller
+                    name="lastPcb"
+                    control={state.newForm.control}
+                    render={({ field: { value, ...field }, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          <I18nText id="field.last-pcb.label" />
+                        </FieldLabel>
+                        <Input
+                          {...field}
+                          value={String(value)}
+                          type="number"
+                          min={0}
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                      </Field>
+                    )}
+                  />
+                </div>
+              </FieldGroup>
+
+              <FieldSeparator className="md:hidden" />
+
+              <FieldGroup className="md:col-span-2">
+                <Controller
+                  name="pcbSide"
+                  control={state.newForm.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        <I18nText id="field.pcb-side.label" />
+                      </FieldLabel>
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="T">
+                            <I18nText id="field.pcb-side.top" />
+                          </SelectItem>
+                          <SelectItem value="B">
+                            <I18nText id="field.pcb-side.bottom" />
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    </Field>
+                  )}
+                />
+
+                <Controller
+                  name="donePerShift"
+                  control={state.newForm.control}
+                  render={({ field: { value, ...field }, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        <I18nText id="field.done-per-shift.label" />
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        value={String(value)}
+                        type="number"
+                        min={0}
+                        id={field.name}
+                        aria-invalid={fieldState.invalid}
+                      />
+                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    </Field>
+                  )}
+                />
+
+                <Controller
+                  name="segmentsCount"
+                  control={state.newForm.control}
+                  render={({ field: { value, ...field }, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        <I18nText id="field.segments-count.label" />
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        value={String(value)}
+                        type="number"
+                        min={0}
+                        id={field.name}
+                        aria-invalid={fieldState.invalid}
+                      />
+                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    </Field>
+                  )}
+                />
               </FieldGroup>
             </div>
           </form>

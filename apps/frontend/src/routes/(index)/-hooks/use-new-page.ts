@@ -38,6 +38,13 @@ export function useNewPage() {
         comment: data.comment || undefined,
         timeStart: data.timestampStart.date!.getTime() / 1000 + timeToSeconds(data.timestampStart.time),
         timeEnd: data.timestampEnd.date!.getTime() / 1000 + timeToSeconds(data.timestampEnd.time),
+        firstMPcb: data.firstMPcb,
+        firstPcb: data.firstPcb,
+        lastMPcb: data.lastMPcb,
+        lastPcb: data.lastPcb,
+        pcbSide: data.pcbSide,
+        donePerShift: data.donePerShift,
+        segmentsCount: data.segmentsCount,
       },
     })
     queryClient.invalidateQueries(getSMTLinesQueryOptions({ limit: 10, page: 1 }))

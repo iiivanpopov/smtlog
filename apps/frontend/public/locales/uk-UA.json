@@ -54,5 +54,14 @@
   "toast.deleted-smt": "Запис SMT успішно видалено",
   "toast.created-smt": "Новий запис успішно створено",
   "toast.deleted-user": "Користувача успішно видалено",
-  "toast.created-user": "Користувача успішно створено"
+  "toast.created-user": "Користувача успішно створено",
+  "field.first-m-pcb.label": "Перша M PCB",
+  "field.first-pcb.label": "Перша PCB",
+  "field.last-m-pcb.label": "Остання M PCB",
+  "field.last-pcb.label": "Остання PCB",
+  "field.pcb-side.label": "Сторона PCB",
+  "field.pcb-side.top": "Верх (T)",
+  "field.pcb-side.bottom": "Низ (B)",
+  "field.done-per-shift.label": "Виконано за зміну",
+  "field.segments-count.label": "Кількість сегментів"
 }
