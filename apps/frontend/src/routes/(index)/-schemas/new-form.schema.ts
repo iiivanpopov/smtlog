@@ -17,7 +17,6 @@ export const NewFormSchema = z.object({
   lastMPcb: z.coerce.number().int().min(1),
   lastPcb: z.coerce.number().int().min(1),
   pcbSide: z.enum(['T', 'B']),
-  donePerShift: z.coerce.number().int().min(1),
   segmentsCount: z.coerce.number().int().min(1),
 })
 
@@ -34,6 +33,5 @@ export const newFormDefaultValues: NewFormData = {
   lastMPcb: 0,
   lastPcb: 0,
   pcbSide: 'T',
-  donePerShift: 0,
   segmentsCount: 0,
 }

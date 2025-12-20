@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "4d446642-e4df-4f73-91c7-abee340530c2",
+  "id": "6b4e1066-5f52-4716-a1a9-ca2283197f1a",
   "prevId": "e7fa1073-c021-4a0f-aeb3-d53c095ab341",
   "tables": {
     "sessions": {
@@ -203,8 +203,16 @@
           "autoincrement": false,
           "default": "'T'"
         },
-        "done_per_shift": {
-          "name": "done_per_shift",
+        "done_per_shift_m_pcb": {
+          "name": "done_per_shift_m_pcb",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "done_per_shift_pcb": {
+          "name": "done_per_shift_pcb",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,

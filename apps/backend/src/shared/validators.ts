@@ -60,10 +60,6 @@ export const smtLineLastPcbValidator = z
   .min(1)
 export const smtLinePcbSideValidator = z
   .enum(['T', 'B'])
-export const smtLineDonePerShiftValidator = z
-  .number()
-  .int()
-  .min(1)
 export const smtLineSegmentsCountValidator = z
   .number()
   .int()

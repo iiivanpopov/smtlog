@@ -623,27 +623,6 @@ export function NewPage() {
                 />
 
                 <Controller
-                  name="donePerShift"
-                  control={state.newForm.control}
-                  render={({ field: { value, ...field }, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.done-per-shift.label" />
-                      </FieldLabel>
-                      <Input
-                        {...field}
-                        value={String(value)}
-                        type="number"
-                        min={0}
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                      />
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
-
-                <Controller
                   name="segmentsCount"
                   control={state.newForm.control}
                   render={({ field: { value, ...field }, fieldState }) => (

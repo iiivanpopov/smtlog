@@ -64,7 +64,8 @@ export const smtLinesTable = sqliteTable('smt_lines', {
   lastMPcb: int('last_m_pcb').notNull().default(0),
   lastPcb: int('last_pcb').notNull().default(0),
   pcbSide: text('pcb_side', { enum: ['T', 'B'] }).notNull().default('T'),
-  donePerShift: int('done_per_shift').notNull().default(0),
+  donePerShiftMPcb: int('done_per_shift_m_pcb').notNull().default(0),
+  donePerShiftPcb: int('done_per_shift_pcb').notNull().default(0),
   segmentsCount: int('segments_count').notNull().default(0),
   createdAt: int('created_at', { mode: 'timestamp' })
     .notNull()

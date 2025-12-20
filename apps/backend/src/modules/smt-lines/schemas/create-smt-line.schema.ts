@@ -3,7 +3,6 @@ import {
   smtLineBoardValidator,
   smtLineCommentValidator,
   smtLineCountValidator,
-  smtLineDonePerShiftValidator,
   smtLineFirstMPcbValidator,
   smtLineFirstPcbValidator,
   smtLineLastMPcbValidator,
@@ -25,7 +24,6 @@ export const CreateSMTLineSchema = z.object({
   lastMPcb: smtLineLastMPcbValidator,
   lastPcb: smtLineLastPcbValidator,
   pcbSide: smtLinePcbSideValidator,
-  donePerShift: smtLineDonePerShiftValidator,
   segmentsCount: smtLineSegmentsCountValidator,
 })
 
