@@ -32,9 +32,6 @@ export const paginationLimitValidator = stringToNumberValidator
 export const smtLineBoardValidator = z
   .string()
   .min(1)
-export const smtLineCountValidator = z
-  .number()
-  .min(1)
 export const smtLineCommentValidator = z
   .string()
   .optional()

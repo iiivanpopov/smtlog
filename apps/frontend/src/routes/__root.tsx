@@ -13,7 +13,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
   beforeLoad: async () => {
     const sessionToken = localStorage.getItem(config.localStorage.sessionToken)
     if (!sessionToken)
-      return undefined
+      return { user: undefined }
 
     return queryClient.fetchQuery(getSessionQueryOptions())
       .then(response => ({ user: response.data?.user }))

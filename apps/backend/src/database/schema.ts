@@ -53,20 +53,22 @@ export type NewSetting = InferInsertModel<typeof settingsTable>
 
 export const smtLinesTable = sqliteTable('smt_lines', {
   id: int().primaryKey({ autoIncrement: true }),
-  userId: int('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  userId: int('user_id')
+    .references(() => usersTable.id, { onDelete: 'set null' }),
   board: text().notNull(),
   comment: text(),
-  count: int().notNull(),
   timeStart: int('time_start', { mode: 'timestamp' }).notNull(),
   timeEnd: int('time_end', { mode: 'timestamp' }).notNull(),
-  firstMPcb: int('first_m_pcb').notNull().default(0),
-  firstPcb: int('first_pcb').notNull().default(0),
-  lastMPcb: int('last_m_pcb').notNull().default(0),
-  lastPcb: int('last_pcb').notNull().default(0),
-  pcbSide: text('pcb_side', { enum: ['T', 'B'] }).notNull().default('T'),
-  donePerShiftMPcb: int('done_per_shift_m_pcb').notNull().default(0),
-  donePerShiftPcb: int('done_per_shift_pcb').notNull().default(0),
-  segmentsCount: int('segments_count').notNull().default(0),
+  firstMPcb: int('first_m_pcb').notNull(),
+  firstPcb: int('first_pcb').notNull(),
+  lastMPcb: int('last_m_pcb').notNull(),
+  lastPcb: int('last_pcb').notNull(),
+  pcbSide: text('pcb_side', { enum: ['T', 'B'] })
+    .notNull()
+    .default('T'),
+  donePerShiftMPcb: int('done_per_shift_m_pcb').notNull(),
+  donePerShiftPcb: int('done_per_shift_pcb').notNull(),
+  segmentsCount: int('segments_count').notNull(),
   createdAt: int('created_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),

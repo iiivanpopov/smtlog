@@ -30,19 +30,12 @@ export function getSMTLines(userId: number, payload: GetSMTLinesData) {
 export function createSMTLine(userId: number, { timeEnd, timeStart, comment, ...payload }: CreateSMTLineData) {
   db.insert(smtLinesTable).values({
     userId,
-    board: payload.board,
-    count: payload.count,
+    ...payload,
     comment: comment || undefined,
-    lastMPcb: payload.lastMPcb,
-    lastPcb: payload.lastPcb,
-    firstMPcb: payload.firstMPcb,
-    firstPcb: payload.firstPcb,
-    pcbSide: payload.pcbSide,
-    segmentsCount: payload.segmentsCount,
     donePerShiftMPcb: payload.lastMPcb - payload.firstMPcb + 1,
     donePerShiftPcb: payload.lastPcb - payload.firstPcb + payload.segmentsCount,
-    timeEnd: new Date(timeEnd * 1000),
-    timeStart: new Date(timeStart * 1000),
+    timeEnd: new Date(timeEnd),
+    timeStart: new Date(timeStart),
   }).run()
 }
 

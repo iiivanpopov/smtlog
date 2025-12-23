@@ -2,7 +2,6 @@ import { z } from 'zod'
 import {
   smtLineBoardValidator,
   smtLineCommentValidator,
-  smtLineCountValidator,
   smtLineFirstMPcbValidator,
   smtLineFirstPcbValidator,
   smtLineLastMPcbValidator,
@@ -15,7 +14,6 @@ import {
 
 export const CreateSMTLineSchema = z.object({
   board: smtLineBoardValidator,
-  count: smtLineCountValidator,
   comment: smtLineCommentValidator,
   timeStart: smtLineTimeStartValidator,
   timeEnd: smtLineTimeEndValidator,

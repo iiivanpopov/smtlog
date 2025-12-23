@@ -1,1 +1,0 @@
-ALTER TABLE `smt_lines` ADD `comment` text;

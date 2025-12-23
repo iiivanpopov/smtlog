@@ -1,11 +1,11 @@
 import type { Locale } from '@/providers'
 import { useRouteContext, useRouter } from '@tanstack/react-router'
 import { MoonIcon, SunIcon, UserIcon } from 'lucide-react'
-import { useLogoutMutation } from '@/api'
+import { getSessionQueryOptions, useLogoutMutation } from '@/api'
 import { config } from '@/config'
 import { useDisclosure } from '@/hooks'
 import { startViewTransition } from '@/lib'
-import { useI18n, useTheme } from '@/providers'
+import { queryClient, useI18n, useTheme } from '@/providers'
 import { I18nText } from './i18n'
 import { Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from './ui'
 
@@ -38,6 +38,7 @@ export function Header() {
     localStorage.removeItem(config.localStorage.sessionToken)
     logoutDialog.close()
     router.invalidate()
+    queryClient.removeQueries(getSessionQueryOptions())
   }
   const onLocaleChange = (value: string) => i18n.setLocale(value as Locale)
 

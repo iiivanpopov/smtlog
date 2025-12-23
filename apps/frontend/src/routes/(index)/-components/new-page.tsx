@@ -1,6 +1,6 @@
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ListIcon, TrashIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
+import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldLabel, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
@@ -97,9 +97,6 @@ export function NewPage() {
                           <TableCell>
                             <p><I18nDate date={smtLine.timeEnd} /></p>
                             <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeEnd} /></p>
-                          </TableCell>
-                          <TableCell className="text-center font-medium">
-                            {smtLine.count}
                           </TableCell>
                           <TableCell className="text-center">
                             {smtLine.pcbSide}
@@ -241,25 +238,15 @@ export function NewPage() {
                             <p className="text-sm wrap-break-word">{smtLine.comment}</p>
                           </div>
                         )}
-
-                        <div className="flex items-center justify-between pt-2 border-t">
-                          <div>
-                            <span className="text-xs text-muted-foreground mr-2">
-                              <I18nText id="table.smt-lines.count" />
-                              :
-                            </span>
-                            <span className="font-medium">{smtLine.count}</span>
-                          </div>
-                          <Button
-                            disabled={mutations.deleteSMTLine.isPending}
-                            onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
-                            className="text-destructive"
-                            variant="ghost"
-                            size="icon-sm"
-                          >
-                            <TrashIcon />
-                          </Button>
-                        </div>
+                        <Button
+                          disabled={mutations.deleteSMTLine.isPending}
+                          onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
+                          className="text-destructive"
+                          variant="ghost"
+                          size="icon-sm"
+                        >
+                          <TrashIcon />
+                        </Button>
                       </div>
                     </Card>
                   ))}
@@ -271,274 +258,253 @@ export function NewPage() {
         <CardContent className="w-[350px] md:w-[600px]">
           <form id="new-form" onSubmit={handlers.onNewFormSubmit}>
             <div className="grid md:grid-cols-2 gap-6">
-              <FieldGroup>
-                <Controller
-                  name="board"
-                  control={state.newForm.control}
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.board.label" />
-                      </FieldLabel>
+              <Controller
+                name="board"
+                control={state.newForm.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.board.label" />
+                    </FieldLabel>
 
-                      <Popover open={state.boardsSelect.opened} onOpenChange={state.boardsSelect.setOpened}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            aria-invalid={fieldState.invalid}
-                            aria-expanded={state.boardsSelect.opened}
-                            className="w-full justify-between font-normal"
-                          >
-                            <span className="truncate max-w-[200px]">
-                              {field.value
-                                ? queries.dictionary.data?.data.boards.find(board => board === field.value)
-                                : t('field.board.placeholder')}
-                            </span>
-                            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </PopoverTrigger>
-
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                          <Command>
-                            <CommandInput placeholder={t('field.board.search')} />
-                            <CommandList>
-                              <CommandEmpty>
-                                <I18nText id="field.board.not-found" />
-                              </CommandEmpty>
-                              <CommandGroup>
-                                {queries.dictionary.data?.data.boards.map(board => (
-                                  <CommandItem
-                                    key={board}
-                                    value={board}
-                                    onSelect={() => {
-                                      field.onChange(board)
-                                      state.boardsSelect.close()
-                                    }}
-                                  >
-                                    <span className="truncate w-[300px]">
-                                      {board}
-                                    </span>
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        field.value === board ? 'opacity-100' : 'opacity-0',
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
-
-                <Controller
-                  name="count"
-                  control={state.newForm.control}
-                  render={({ field: { value, ...field }, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.count.label" />
-                      </FieldLabel>
-                      <Input
-                        {...field}
-                        value={String(value)}
-                        placeholder="1"
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                      />
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
-
-                <Controller
-                  name="comment"
-                  control={state.newForm.control}
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid} className="h-full flex flex-col">
-                      <FieldContent>
-                        <FieldLabel htmlFor={field.name}>
-                          <I18nText id="field.comment.label" />
-                        </FieldLabel>
-                        <FieldDescription>
-                          <I18nText id="field.comment.description" />
-                        </FieldDescription>
-                      </FieldContent>
-
-                      <Textarea
-                        {...field}
-                        placeholder={t('field.comment.placeholder')}
-                        id={field.name}
-                        rows={3}
-                        className="flex-1"
-                        aria-invalid={fieldState.invalid}
-                      />
-
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
-              </FieldGroup>
-
-              <FieldSeparator className="md:hidden" />
-
-              <FieldGroup>
-                <Field>
-                  <FieldLabel>
-                    <I18nText id="field.start-time.label" />
-                  </FieldLabel>
-                  <div className="flex gap-2">
-                    <Controller
-                      name="timestampStart.date"
-                      control={state.newForm.control}
-                      render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-3">
-                          <Popover open={state.dateStartPicker.opened} onOpenChange={state.dateStartPicker.setOpened}>
-                            <PopoverTrigger asChild>
-                              <Button
-                                aria-invalid={fieldState.invalid}
-                                aria-expanded={state.dateStartPicker.opened}
-                                variant="outline"
-                                className="max-h-9 justify-between font-normal"
-                              >
-                                {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
-                                <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                              <Calendar
-                                mode="single"
-                                selected={field.value ?? undefined}
-                                captionLayout="dropdown"
-                                onSelect={(date) => {
-                                  field.onChange(date)
-                                  state.dateStartPicker.close()
-                                }}
-                              />
-                            </PopoverContent>
-                          </Popover>
-                          {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                        </Field>
-                      )}
-                    />
-
-                    <Controller
-                      name="timestampStart.time"
-                      control={state.newForm.control}
-                      render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="flex-2 w-[140px]">
-                          <Input
-                            {...field}
-                            type="time"
-                            id={field.name}
-                            aria-invalid={fieldState.invalid}
-                          />
-                          {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                        </Field>
-                      )}
-                    />
-                  </div>
-                </Field>
-
-                <Field>
-                  <FieldLabel>
-                    <I18nText id="field.end-time.label" />
-                  </FieldLabel>
-                  <div className="flex gap-2">
-                    <Controller
-                      name="timestampEnd.date"
-                      control={state.newForm.control}
-                      render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-3">
-                          <Popover open={state.dateEndPicker.opened} onOpenChange={state.dateEndPicker.setOpened}>
-                            <PopoverTrigger asChild>
-                              <Button
-                                aria-invalid={fieldState.invalid}
-                                variant="outline"
-                                aria-expanded={state.dateEndPicker.opened}
-                                className="flex-1 max-h-9 justify-between font-normal"
-                              >
-                                {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
-                                <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                              <Calendar
-                                mode="single"
-                                selected={field.value ?? undefined}
-                                captionLayout="dropdown"
-                                onSelect={(date) => {
-                                  field.onChange(date)
-                                  state.dateEndPicker.close()
-                                }}
-                              />
-                            </PopoverContent>
-                          </Popover>
-                          {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                        </Field>
-                      )}
-                    />
-
-                    <Controller
-                      name="timestampEnd.time"
-                      control={state.newForm.control}
-                      render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid} className="w-[140px] flex-2">
-                          <Input
-                            {...field}
-                            type="time"
-                            id={field.name}
-                            aria-invalid={fieldState.invalid}
-                          />
-                          {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                        </Field>
-                      )}
-                    />
-                  </div>
-                </Field>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <Controller
-                    name="firstMPcb"
-                    control={state.newForm.control}
-                    render={({ field: { value, ...field }, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          <I18nText id="field.first-m-pcb.label" />
-                        </FieldLabel>
-                        <Input
-                          {...field}
-                          value={String(value)}
-                          type="number"
-                          min={0}
-                          id={field.name}
+                    <Popover open={state.boardsSelect.opened} onOpenChange={state.boardsSelect.setOpened}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          role="combobox"
                           aria-invalid={fieldState.invalid}
-                        />
+                          aria-expanded={state.boardsSelect.opened}
+                          className="w-full justify-between font-normal"
+                        >
+                          <span className="truncate max-w-[200px]">
+                            {field.value
+                              ? queries.dictionary.data?.data.boards.find(board => board === field.value)
+                              : t('field.board.placeholder')}
+                          </span>
+                          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+
+                      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+                        <Command>
+                          <CommandInput placeholder={t('field.board.search')} />
+                          <CommandList>
+                            <CommandEmpty>
+                              <I18nText id="field.board.not-found" />
+                            </CommandEmpty>
+                            <CommandGroup>
+                              {queries.dictionary.data?.data.boards.map(board => (
+                                <CommandItem
+                                  key={board}
+                                  value={board}
+                                  onSelect={() => {
+                                    field.onChange(board)
+                                    state.boardsSelect.close()
+                                  }}
+                                >
+                                  <span className="truncate w-[300px]">
+                                    {board}
+                                  </span>
+                                  <CheckIcon
+                                    className={cn(
+                                      'ml-auto h-4 w-4',
+                                      field.value === board ? 'opacity-100' : 'opacity-0',
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="pcbSide"
+                control={state.newForm.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.pcb-side.label" />
+                    </FieldLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger size="sm" className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="T">
+                          <I18nText id="field.pcb-side.top" />
+                        </SelectItem>
+                        <SelectItem value="B">
+                          <I18nText id="field.pcb-side.bottom" />
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="firstMPcb"
+                control={state.newForm.control}
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.first-m-pcb.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      value={String(value)}
+                      type="number"
+                      min={0}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="firstPcb"
+                control={state.newForm.control}
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.first-pcb.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      value={String(value)}
+                      type="number"
+                      min={0}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="lastMPcb"
+                control={state.newForm.control}
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.last-m-pcb.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      value={String(value)}
+                      type="number"
+                      min={0}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="lastPcb"
+                control={state.newForm.control}
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.last-pcb.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      value={String(value)}
+                      type="number"
+                      min={0}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
+
+              <Field aria-disabled="true">
+                <FieldLabel>
+                  <I18nText id="field.done-per-shift-m-pcb.label" />
+                </FieldLabel>
+                <Input
+                  disabled
+                  value={String(state.donePerShiftMPcb)}
+                  type="number"
+                  min={0}
+                />
+              </Field>
+
+              <Field aria-disabled="true">
+                <FieldLabel>
+                  <I18nText id="field.done-per-shift-pcb.label" />
+                </FieldLabel>
+                <Input
+                  disabled
+                  value={String(state.donePerShiftPcb)}
+                  type="number"
+                  min={0}
+                />
+              </Field>
+
+              <Field className="md:col-start-2 md:row-start-1">
+                <FieldLabel>
+                  <I18nText id="field.start-time.label" />
+                </FieldLabel>
+                <div className="flex gap-2">
+                  <Controller
+                    name="timestampStart.date"
+                    control={state.newForm.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid} className="w-[140px] flex-1">
+                        <Popover open={state.dateStartPicker.opened} onOpenChange={state.dateStartPicker.setOpened}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              aria-invalid={fieldState.invalid}
+                              aria-expanded={state.dateStartPicker.opened}
+                              variant="outline"
+                              className="max-h-9 justify-between font-normal"
+                            >
+                              {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
+                              <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value ?? undefined}
+                              captionLayout="dropdown"
+                              onSelect={(date) => {
+                                field.onChange(date)
+                                state.dateStartPicker.close()
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
                         {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
                       </Field>
                     )}
                   />
 
                   <Controller
-                    name="firstPcb"
+                    name="timestampStart.time"
                     control={state.newForm.control}
-                    render={({ field: { value, ...field }, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          <I18nText id="field.first-pcb.label" />
-                        </FieldLabel>
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid} className="w-[140px] flex-1">
                         <Input
                           {...field}
-                          value={String(value)}
-                          type="number"
-                          min={0}
+                          type="time"
                           id={field.name}
                           aria-invalid={fieldState.invalid}
                         />
@@ -547,42 +513,55 @@ export function NewPage() {
                     )}
                   />
                 </div>
+              </Field>
 
-                <div className="grid grid-cols-2 gap-4">
+              <Field className="md:col-start-2 md:row-start-2">
+                <FieldLabel>
+                  <I18nText id="field.end-time.label" />
+                </FieldLabel>
+                <div className="flex gap-2">
                   <Controller
-                    name="lastMPcb"
+                    name="timestampEnd.date"
                     control={state.newForm.control}
-                    render={({ field: { value, ...field }, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          <I18nText id="field.last-m-pcb.label" />
-                        </FieldLabel>
-                        <Input
-                          {...field}
-                          value={String(value)}
-                          type="number"
-                          min={0}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid} className="w-[140px] flex-1">
+                        <Popover open={state.dateEndPicker.opened} onOpenChange={state.dateEndPicker.setOpened}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              aria-invalid={fieldState.invalid}
+                              variant="outline"
+                              aria-expanded={state.dateEndPicker.opened}
+                              className="max-h-9 justify-between font-normal"
+                            >
+                              {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
+                              <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value ?? undefined}
+                              captionLayout="dropdown"
+                              onSelect={(date) => {
+                                field.onChange(date)
+                                state.dateEndPicker.close()
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
                         {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
                       </Field>
                     )}
                   />
 
                   <Controller
-                    name="lastPcb"
+                    name="timestampEnd.time"
                     control={state.newForm.control}
-                    render={({ field: { value, ...field }, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          <I18nText id="field.last-pcb.label" />
-                        </FieldLabel>
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid} className="w-[140px] flex-1">
                         <Input
                           {...field}
-                          value={String(value)}
-                          type="number"
-                          min={0}
+                          type="time"
                           id={field.name}
                           aria-invalid={fieldState.invalid}
                         />
@@ -591,58 +570,56 @@ export function NewPage() {
                     )}
                   />
                 </div>
-              </FieldGroup>
+              </Field>
 
-              <FieldSeparator className="md:hidden" />
+              <Controller
+                name="segmentsCount"
+                control={state.newForm.control}
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="md:col-span-2">
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.segments-count.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      value={String(value)}
+                      type="number"
+                      min={0}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
 
-              <FieldGroup className="md:col-span-2">
-                <Controller
-                  name="pcbSide"
-                  control={state.newForm.control}
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
+              <Controller
+                name="comment"
+                control={state.newForm.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="md:row-start-6 md:col-span-2 h-full flex flex-col">
+                    <FieldContent>
                       <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.pcb-side.label" />
+                        <I18nText id="field.comment.label" />
                       </FieldLabel>
-                      <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger size="sm" className="w-full">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="T">
-                            <I18nText id="field.pcb-side.top" />
-                          </SelectItem>
-                          <SelectItem value="B">
-                            <I18nText id="field.pcb-side.bottom" />
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
+                      <FieldDescription>
+                        <I18nText id="field.comment.description" />
+                      </FieldDescription>
+                    </FieldContent>
 
-                <Controller
-                  name="segmentsCount"
-                  control={state.newForm.control}
-                  render={({ field: { value, ...field }, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        <I18nText id="field.segments-count.label" />
-                      </FieldLabel>
-                      <Input
-                        {...field}
-                        value={String(value)}
-                        type="number"
-                        min={0}
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                      />
-                      {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
-                    </Field>
-                  )}
-                />
-              </FieldGroup>
+                    <Textarea
+                      {...field}
+                      placeholder={t('field.comment.placeholder')}
+                      id={field.name}
+                      rows={3}
+                      className="flex-1"
+                      aria-invalid={fieldState.invalid}
+                    />
+
+                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                  </Field>
+                )}
+              />
             </div>
           </form>
         </CardContent>

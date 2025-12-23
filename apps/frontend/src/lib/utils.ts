@@ -21,7 +21,7 @@ export function startViewTransition(callback: () => void) {
     callback()
 }
 
-export function timeToSeconds(time: string) {
+export function timeToMS(time: string) {
   const [hours = '0', minutes = '0'] = time.split(':')
-  return Number(hours) * 3600 + Number(minutes) * 60
+  return (Number(hours) * 60 * 60 + Number(minutes) * 60) * 1000
 }

@@ -82,7 +82,6 @@ export interface RegisterData {
 
 export interface CreateSMTLineData {
   board: string
-  count: number
   comment?: string | null
   timeStart: number
   timeEnd: number
@@ -91,7 +90,6 @@ export interface CreateSMTLineData {
   lastMPcb: number
   lastPcb: number
   pcbSide: 'T' | 'B'
-  donePerShift: number
   segmentsCount: number
 }
 
