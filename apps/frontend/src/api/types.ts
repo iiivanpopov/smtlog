@@ -49,7 +49,6 @@ export interface SMTLineDTO {
   userId: number | null
   board: string
   comment: string | null
-  count: number
   timeStart: Date
   timeEnd: Date
   firstMPcb: number
@@ -57,7 +56,6 @@ export interface SMTLineDTO {
   lastMPcb: number
   lastPcb: number
   pcbSide: 'T' | 'B'
-  donePerShift: number
   segmentsCount: number
   createdAt: Date
 }

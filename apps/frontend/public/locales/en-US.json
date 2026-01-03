@@ -63,6 +63,8 @@
   "field.pcb-side.label": "PCB Side",
   "field.pcb-side.top": "Top (T)",
   "field.pcb-side.bottom": "Bottom (B)",
-  "field.done-per-shift.label": "Done per Shift",
-  "field.segments-count.label": "Segments Count"
+  "field.segments-count.label": "Segments Count",
+  "field.done-per-shift-m-pcb.label": "Done per shift M PCB",
+  "field.done-per-shift-pcb.label": "Done per shift PCB"
+
 }

@@ -79,7 +79,6 @@ export function useNewPage() {
       dateStartPicker,
       dateEndPicker,
       smtLinesModal,
-      // reactive computed values for the form
       donePerShiftMPcb,
       donePerShiftPcb,
     },

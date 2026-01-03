@@ -62,6 +62,7 @@
   "field.pcb-side.label": "Сторона PCB",
   "field.pcb-side.top": "Верх (T)",
   "field.pcb-side.bottom": "Низ (B)",
-  "field.done-per-shift.label": "Виконано за зміну",
-  "field.segments-count.label": "Кількість сегментів"
+  "field.segments-count.label": "Кількість сегментів",
+  "field.done-per-shift-m-pcb.label": "Виконано за зміну M PCB",
+  "field.done-per-shift-pcb.label": "Виконано за зміну PCB"
 }

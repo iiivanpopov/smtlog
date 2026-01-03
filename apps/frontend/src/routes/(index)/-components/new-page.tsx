@@ -47,9 +47,6 @@ export function NewPage() {
                         <TableHead className="min-w-[130px]">
                           <I18nText id="table.smt-lines.end-at" />
                         </TableHead>
-                        <TableHead className="w-16 text-center">
-                          <I18nText id="table.smt-lines.count" />
-                        </TableHead>
                         <TableHead className="w-20 text-center">
                           <I18nText id="field.pcb-side.label" />
                         </TableHead>
@@ -64,9 +61,6 @@ export function NewPage() {
                         </TableHead>
                         <TableHead className="w-24 text-center">
                           <I18nText id="field.last-pcb.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.done-per-shift.label" />
                         </TableHead>
                         <TableHead className="w-24 text-center">
                           <I18nText id="field.segments-count.label" />
@@ -112,9 +106,6 @@ export function NewPage() {
                           </TableCell>
                           <TableCell className="text-center">
                             {smtLine.lastPcb}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.donePerShift}
                           </TableCell>
                           <TableCell className="text-center">
                             {smtLine.segmentsCount}
@@ -215,12 +206,6 @@ export function NewPage() {
                               <I18nText id="field.pcb-side.label" />
                             </p>
                             <p className="text-sm font-medium">{smtLine.pcbSide}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.done-per-shift.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.donePerShift}</p>
                           </div>
                           <div>
                             <p className="text-xs text-muted-foreground mb-1">
