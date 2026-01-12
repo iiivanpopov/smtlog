@@ -259,12 +259,11 @@ export function NewPage() {
                           role="combobox"
                           aria-invalid={fieldState.invalid}
                           aria-expanded={state.boardsSelect.opened}
-                          className="w-full justify-between font-normal"
+                          className="w-full justify-between font-normal h-auto py-1.5 whitespace-normal"
                         >
-                          <span className="truncate max-w-[200px]">
-                            {field.value
-                              ? queries.dictionary.data?.data.boards.find(board => board === field.value)
-                              : t('field.board.placeholder')}
+                          <span className="line-clamp-2 text-left">
+                            {field.value}
+                            {!field.value && t('field.board.placeholder')}
                           </span>
                           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
