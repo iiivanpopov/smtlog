@@ -1,12 +1,14 @@
-import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ListIcon, TrashIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, TableIcon, TrashIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldLabel, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, Tooltip, TooltipContent, TooltipTrigger } from '@/components'
+import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Field, FieldContent, FieldDescription, FieldError, FieldLabel, Header, I18nDate, I18nText, I18nTime, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea } from '@/components'
+import { useMediaQuery } from '@/hooks'
 import { cn } from '@/lib'
 import { useI18n } from '@/providers'
 import { useNewPage } from '../-hooks/use-new-page'
 
 export function NewPage() {
   const { state, handlers, queries, mutations } = useNewPage()
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { t } = useI18n()
 
   return (
@@ -21,10 +23,10 @@ export function NewPage() {
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <ListIcon />
+                  <TableIcon />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] md:max-w-[800px] max-h-[85vh] overflow-hidden flex flex-col">
+              <DialogContent className="md:max-w-200 lg:max-w-250 xl:max-w-300 max-h-[80vh] overflow-hidden flex flex-col">
                 <DialogHeader>
                   <DialogTitle>
                     <I18nText id="dialog.smt-lines.title" />
@@ -34,208 +36,204 @@ export function NewPage() {
                   </DialogDescription>
                 </DialogHeader>
 
-                <div className="hidden md:block overflow-auto flex-1">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="min-w-[120px]">
-                          <I18nText id="table.smt-lines.board" />
-                        </TableHead>
-                        <TableHead className="min-w-[130px]">
-                          <I18nText id="table.smt-lines.start-at" />
-                        </TableHead>
-                        <TableHead className="min-w-[130px]">
-                          <I18nText id="table.smt-lines.end-at" />
-                        </TableHead>
-                        <TableHead className="w-20 text-center">
-                          <I18nText id="field.pcb-side.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.first-m-pcb.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.first-pcb.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.last-m-pcb.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.last-pcb.label" />
-                        </TableHead>
-                        <TableHead className="w-24 text-center">
-                          <I18nText id="field.segments-count.label" />
-                        </TableHead>
-                        <TableHead className="min-w-[120px]">
-                          <I18nText id="table.smt-lines.comment" />
-                        </TableHead>
-                        <TableHead className="w-16"></TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {queries.smtLines.data.data.smtLines.map(smtLine => (
-                        <TableRow key={smtLine.id}>
-                          <TableCell>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <p className="font-semibold text-left line-clamp-2 max-w-[200px]">{smtLine.board}</p>
-                              </TooltipTrigger>
-                              <TooltipContent className="max-w-[300px] wrap-break-word">
-                                {smtLine.board}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TableCell>
-                          <TableCell>
-                            <p><I18nDate date={smtLine.timeStart} /></p>
-                            <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeStart} /></p>
-                          </TableCell>
-                          <TableCell>
-                            <p><I18nDate date={smtLine.timeEnd} /></p>
-                            <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeEnd} /></p>
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.pcbSide}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.firstMPcb}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.firstPcb}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.lastMPcb}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.lastPcb}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {smtLine.segmentsCount}
-                          </TableCell>
-                          <TableCell>
-                            {smtLine.comment && (
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <p className="text-left line-clamp-2 max-w-[200px]">{smtLine.comment}</p>
-                                </TooltipTrigger>
-                                <TooltipContent className="max-w-[300px] max-h-[300px] wrap-break-word">
-                                  {smtLine.comment}
-                                </TooltipContent>
-                              </Tooltip>
-                            )}
-                            {!smtLine.comment && (
-                              <span className="text-muted-foreground">-</span>
-                            )}
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Button
-                              disabled={mutations.deleteSMTLine.isPending}
-                              onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
-                              className="text-destructive"
-                              variant="ghost"
-                              size="icon-sm"
-                            >
-                              <TrashIcon />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-
-                <div className="md:hidden overflow-auto flex-1 space-y-3 px-1">
-                  {queries.smtLines.data.data.smtLines.map(smtLine => (
-                    <Card key={smtLine.id} className="p-4">
-                      <div className="space-y-3">
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-1">
+                {!isMobile && (
+                  <div className="overflow-auto flex-1">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-48">
                             <I18nText id="table.smt-lines.board" />
-                          </p>
-                          <p className="font-semibold wrap-break-word">{smtLine.board}</p>
-                        </div>
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="table.smt-lines.start-at" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="table.smt-lines.end-at" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="table.pcb-side.title" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="field.first-m-pcb.label" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="field.first-pcb.label" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="field.last-m-pcb.label" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="field.last-pcb.label" />
+                          </TableHead>
+                          <TableHead>
+                            <I18nText id="field.segments-count.label" />
+                          </TableHead>
+                          <TableHead className="w-50">
+                            <I18nText id="table.smt-lines.comment" />
+                          </TableHead>
+                          <TableHead></TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {queries.smtLines.data.data.smtLines.map(smtLine => (
+                          <TableRow key={smtLine.id}>
+                            <TableCell>
+                              <div className="font-semibold line-clamp-2 whitespace-normal">
+                                {smtLine.board}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <I18nDate date={smtLine.timeStart} />
+                              <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeStart} /></p>
+                            </TableCell>
+                            <TableCell>
+                              <I18nDate date={smtLine.timeEnd} />
+                              <p className="text-muted-foreground text-sm"><I18nTime date={smtLine.timeEnd} /></p>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.pcbSide}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.firstMPcb}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.firstPcb}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.lastMPcb}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.lastPcb}
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {smtLine.segmentsCount}
+                            </TableCell>
+                            <TableCell>
+                              <div className="select-text text-left line-clamp-2 whitespace-normal">
+                                {smtLine.comment}
+                              </div>
+                              {!smtLine.comment && (
+                                <span className="text-muted-foreground">-</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Button
+                                disabled={mutations.deleteSMTLine.isPending}
+                                onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
+                                className="text-destructive"
+                                variant="ghost"
+                                size="icon-sm"
+                              >
+                                <TrashIcon />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
 
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="table.smt-lines.start-at" />
-                            </p>
-                            <p className="text-sm"><I18nDate date={smtLine.timeStart} /></p>
-                            <p className="text-xs text-muted-foreground"><I18nTime date={smtLine.timeStart} /></p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="table.smt-lines.end-at" />
-                            </p>
-                            <p className="text-sm"><I18nDate date={smtLine.timeEnd} /></p>
-                            <p className="text-xs text-muted-foreground"><I18nTime date={smtLine.timeEnd} /></p>
-                          </div>
-                        </div>
+                {isMobile
+                  && (
+                    <div className="md:hidden overflow-auto flex-1 space-y-3 px-1">
+                      {queries.smtLines.data.data.smtLines.map(smtLine => (
+                        <Card key={smtLine.id} className="p-4">
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="table.smt-lines.board" />
+                                </p>
+                                <p className="font-semibold wrap-break-word">{smtLine.board}</p>
+                              </div>
 
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.first-m-pcb.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.firstMPcb}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.first-pcb.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.firstPcb}</p>
-                          </div>
-                        </div>
+                              <Button
+                                disabled={mutations.deleteSMTLine.isPending}
+                                onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
+                                className="text-destructive flex-end"
+                                variant="ghost"
+                                size="icon-sm"
+                              >
+                                <TrashIcon />
+                              </Button>
+                            </div>
 
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.last-m-pcb.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.lastMPcb}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.last-pcb.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.lastPcb}</p>
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="table.smt-lines.start-at" />
+                                </p>
+                                <p className="text-sm"><I18nDate date={smtLine.timeStart} /></p>
+                                <p className="text-sm text-muted-foreground"><I18nTime date={smtLine.timeStart} /></p>
+                              </div>
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="table.smt-lines.end-at" />
+                                </p>
+                                <p className="text-sm"><I18nDate date={smtLine.timeEnd} /></p>
+                                <p className="text-sm text-muted-foreground"><I18nTime date={smtLine.timeEnd} /></p>
+                              </div>
+                            </div>
 
-                        <div className="grid grid-cols-3 gap-3">
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.pcb-side.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.pcbSide}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="field.segments-count.label" />
-                            </p>
-                            <p className="text-sm font-medium">{smtLine.segmentsCount}</p>
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.first-m-pcb.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.firstMPcb}</p>
+                              </div>
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.first-pcb.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.firstPcb}</p>
+                              </div>
+                            </div>
 
-                        {smtLine.comment && (
-                          <div>
-                            <p className="text-xs text-muted-foreground mb-1">
-                              <I18nText id="table.smt-lines.comment" />
-                            </p>
-                            <p className="text-sm wrap-break-word">{smtLine.comment}</p>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.last-m-pcb.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.lastMPcb}</p>
+                              </div>
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.last-pcb.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.lastPcb}</p>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.pcb-side.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.pcbSide}</p>
+                              </div>
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="field.segments-count.label" />
+                                </p>
+                                <p className="text-sm font-medium">{smtLine.segmentsCount}</p>
+                              </div>
+                            </div>
+
+                            {smtLine.comment && (
+                              <div>
+                                <p className="text-muted-foreground mb-1">
+                                  <I18nText id="table.smt-lines.comment" />
+                                </p>
+                                <p className="text-sm wrap-break-word">{smtLine.comment}</p>
+                              </div>
+                            )}
                           </div>
-                        )}
-                        <Button
-                          disabled={mutations.deleteSMTLine.isPending}
-                          onClick={() => handlers.onDeleteSMTLine(smtLine.id)}
-                          className="text-destructive"
-                          variant="ghost"
-                          size="icon-sm"
-                        >
-                          <TrashIcon />
-                        </Button>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
               </DialogContent>
             </Dialog>
           </CardAction>
@@ -350,7 +348,7 @@ export function NewPage() {
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                     />
-                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
                   </Field>
                 )}
               />
@@ -371,7 +369,7 @@ export function NewPage() {
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                     />
-                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
                   </Field>
                 )}
               />
@@ -392,7 +390,7 @@ export function NewPage() {
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                     />
-                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
                   </Field>
                 )}
               />
@@ -413,12 +411,12 @@ export function NewPage() {
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                     />
-                    {fieldState.invalid && (<FieldError errors={[t(fieldState.error)]} />)}
+                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
                   </Field>
                 )}
               />
 
-              <Field aria-disabled="true">
+              <Field data-disabled="true">
                 <FieldLabel>
                   <I18nText id="field.done-per-shift-m-pcb.label" />
                 </FieldLabel>
@@ -430,7 +428,7 @@ export function NewPage() {
                 />
               </Field>
 
-              <Field aria-disabled="true">
+              <Field data-disabled="true">
                 <FieldLabel>
                   <I18nText id="field.done-per-shift-pcb.label" />
                 </FieldLabel>

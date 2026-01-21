@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-import type { ErrorRouteComponent } from '@tanstack/react-router'
 import { useRouter } from '@tanstack/react-router'
 import { config } from '@/config'
 import { I18nText } from './i18n'
@@ -36,5 +34,3 @@ export function ErrorPage({ error, reset }: ErrorPageProps) {
     </div>
   )
 }
-
-export const errorPageHandler: ErrorRouteComponent = payload => <ErrorPage {...payload} />

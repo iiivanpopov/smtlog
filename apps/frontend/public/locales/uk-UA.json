@@ -60,9 +60,10 @@
   "field.last-m-pcb.label": "Остання M PCB",
   "field.last-pcb.label": "Остання PCB",
   "field.pcb-side.label": "Сторона PCB",
+  "table.pcb-side.title": "Сторона",
   "field.pcb-side.top": "Верх (T)",
   "field.pcb-side.bottom": "Низ (B)",
-  "field.segments-count.label": "Кількість сегментів",
+  "field.segments-count.label": "Сегменти",
   "field.done-per-shift-m-pcb.label": "Виконано за зміну M PCB",
   "field.done-per-shift-pcb.label": "Виконано за зміну PCB"
 }

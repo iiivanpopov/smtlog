@@ -59,10 +59,11 @@
   "field.first-pcb.label": "Первая PCB",
   "field.last-m-pcb.label": "Последняя M PCB",
   "field.last-pcb.label": "Последняя PCB",
+  "table.pcb-side.title": "Сторона",
   "field.pcb-side.label": "Сторона PCB",
   "field.pcb-side.top": "Верх (T)",
   "field.pcb-side.bottom": "Низ (B)",
-  "field.segments-count.label": "Количество сегментов",
+  "field.segments-count.label": "Сегменты",
   "field.done-per-shift-m-pcb.label": "Выполнено за смену M PCB",
   "field.done-per-shift-pcb.label": "Выполнено за смену PCB"
 }
