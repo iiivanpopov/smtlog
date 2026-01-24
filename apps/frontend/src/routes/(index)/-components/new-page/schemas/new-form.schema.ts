@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { timeToMS } from '@/lib'
+import { calculatePerShiftMPcb, calculatePerShiftPcb } from '../utils'
 
 export const NewFormSchema = z.object({
   board: z.string().nonempty('validation.non-empty'),
@@ -19,7 +20,10 @@ export const NewFormSchema = z.object({
   pcbSide: z.enum(['T', 'B']),
   segmentsCount: z.coerce.number().min(1, 'validation.non-empty'),
 }).superRefine((value, ctx) => {
-  if (value.lastMPcb - value.firstMPcb + 1 <= 0) {
+  if (calculatePerShiftMPcb(
+    Number(value.lastMPcb),
+    Number(value.firstMPcb),
+  ) <= 0) {
     ctx.addIssue({
       code: 'custom',
       message: 'validation.last-m-pcb-must-be-greater',
@@ -27,7 +31,11 @@ export const NewFormSchema = z.object({
     })
   }
 
-  if (value.lastPcb - value.firstPcb + value.segmentsCount <= 0) {
+  if (calculatePerShiftPcb(
+    Number(value.lastPcb),
+    Number(value.firstPcb),
+    Number(value.segmentsCount),
+  ) <= 0) {
     ctx.addIssue({
       code: 'custom',
       message: 'validation.last-pcb-invalid-range',
