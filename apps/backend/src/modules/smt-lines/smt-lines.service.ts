@@ -1,5 +1,6 @@
 import type { CreateSMTLineData, GetSMTLinesData } from './schemas'
-import { and, count, desc, eq, gt } from 'drizzle-orm'
+import type { GetSMTLinesSummaryData } from './schemas/get-smt-lines-summary.schema'
+import { and, count, desc, eq, gt, gte, lte } from 'drizzle-orm'
 import { db, smtLinesTable } from '@/database'
 
 export function getSMTLines(userId: number, payload: GetSMTLinesData) {
@@ -41,4 +42,26 @@ export function createSMTLine(userId: number, { timeEnd, timeStart, comment, ...
 
 export function deleteSMTLine(id: number) {
   db.delete(smtLinesTable).where(eq(smtLinesTable.id, id)).run()
+}
+
+export function getSMTLinesSummary(payload: GetSMTLinesSummaryData) {
+  const smtLinesSummary = db
+    .select()
+    .from(smtLinesTable)
+    .where(
+      and(
+        gte(smtLinesTable.timeStart, payload.dateRangeFrom),
+        lte(smtLinesTable.timeEnd, payload.dateRangeTo),
+        eq(smtLinesTable.board, payload.pcb),
+        eq(smtLinesTable.pcbSide, payload.side),
+      ),
+    )
+    .all()
+
+  return smtLinesSummary.reduce(
+    (prev, curr) => ({
+      donePerShiftPcb: prev.donePerShiftPcb + curr.donePerShiftPcb,
+    }),
+    { donePerShiftPcb: 0 },
+  )
 }

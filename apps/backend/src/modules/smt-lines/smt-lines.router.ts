@@ -2,7 +2,8 @@ import { zValidator } from '@hono/zod-validator'
 import { factory, wrapSuccess } from '@/lib'
 import { sessionMiddleware } from '@/middleware'
 import { CreateSMTLineSchema, DeleteSMTLineSchema, GetSMTLinesSchema } from './schemas'
-import { createSMTLine, deleteSMTLine, getSMTLines } from './smt-lines.service'
+import { GetSMTLinesSummarySchema } from './schemas/get-smt-lines-summary.schema'
+import { createSMTLine, deleteSMTLine, getSMTLines, getSMTLinesSummary } from './smt-lines.service'
 
 const smtLinesRouter = factory.createApp()
 
@@ -16,6 +17,18 @@ smtLinesRouter.get(
     const query = c.req.valid('query')
 
     const data = getSMTLines(user.id, query)
+
+    return c.json(wrapSuccess(data), 200)
+  },
+)
+
+smtLinesRouter.get(
+  '/summary',
+  zValidator('query', GetSMTLinesSummarySchema),
+  (c) => {
+    const query = c.req.valid('query')
+
+    const data = getSMTLinesSummary(query)
 
     return c.json(wrapSuccess(data), 200)
   },

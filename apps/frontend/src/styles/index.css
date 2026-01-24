@@ -9,6 +9,7 @@
 @theme inline {
   --font-noto:
     'Noto Sans', ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', 'Helvetica Neue', arial;
+  --breakpoint-xs: 30rem;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

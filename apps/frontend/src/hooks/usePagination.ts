@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/refs */
 import { useRef, useState } from 'react'
 
 /** The use offset pagination return type */

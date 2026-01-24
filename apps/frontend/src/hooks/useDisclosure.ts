@@ -5,7 +5,7 @@ export function useDisclosure(initialState = false) {
 
   const open = () => setOpened(true)
   const close = () => setOpened(false)
-  const toggle = () => setOpened(current => !current)
+  const toggle = (value?: boolean) => setOpened(current => value ?? !current)
 
   return { setOpened, toggle, open, close, opened }
 }

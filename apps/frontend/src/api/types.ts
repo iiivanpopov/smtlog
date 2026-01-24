@@ -100,6 +100,13 @@ export interface GetSMTLinesData {
   limit: number
 }
 
+export interface GetSMTLinesSummaryData {
+  pcb: string
+  side: 'T' | 'B'
+  dateRangeFrom: number
+  dateRangeTo: number
+}
+
 export interface DeleteUserData {
   id: number
 }

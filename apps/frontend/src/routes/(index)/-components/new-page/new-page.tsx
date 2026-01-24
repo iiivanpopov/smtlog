@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { CalendarIcon, CheckIcon, ChevronsUpDownIcon, TableIcon } from 'lucide-react'
 import { Controller } from 'react-hook-form'
 
 import { Button, Calendar, Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Field, FieldContent, FieldDescription, FieldError, FieldLabel, Header, I18nText, Input, Layout, Popover, PopoverContent, PopoverTrigger, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Spinner, Textarea } from '@/components'
@@ -10,7 +10,7 @@ import { SMTLinesModal } from './components'
 import { useNewPage } from './hooks/use-new-page'
 
 export function NewPage() {
-  const { form, state, handlers, mutations } = useNewPage()
+  const { form, state, handlers, mutations, features } = useNewPage()
   const { t } = useI18n()
 
   return (
@@ -22,7 +22,16 @@ export function NewPage() {
             <I18nText id="action.create-new" />
           </CardTitle>
           <CardAction>
-            <SMTLinesModal />
+            <Button
+              onClick={() => features.smtLinesModal.toggle()}
+              size="icon"
+              variant="ghost"
+            >
+              <TableIcon />
+            </Button>
+            {features.smtLinesModal.opened && (
+              <SMTLinesModal smtLinesModal={features.smtLinesModal} />
+            )}
           </CardAction>
         </CardHeader>
         <CardContent className="w-87.5 md:w-150">
@@ -112,6 +121,27 @@ export function NewPage() {
                         </SelectItem>
                       </SelectContent>
                     </Select>
+                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={form.control}
+                name="segmentsCount"
+                render={({ field: { value, ...field }, fieldState }) => (
+                  <Field className="md:col-span-2" data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      <I18nText id="field.segments-count.label" />
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      min={0}
+                      type="number"
+                      value={String(value)}
+                    />
                     {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
                   </Field>
                 )}
@@ -209,27 +239,6 @@ export function NewPage() {
                 )}
               </Field>
 
-              <Controller
-                control={form.control}
-                name="segmentsCount"
-                render={({ field: { value, ...field }, fieldState }) => (
-                  <Field className="md:col-span-2" data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      <I18nText id="field.segments-count.label" />
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      id={field.name}
-                      min={0}
-                      type="number"
-                      value={String(value)}
-                    />
-                    {fieldState.invalid && <FieldError errors={[t(fieldState.error)]} />}
-                  </Field>
-                )}
-              />
-
               <Field data-disabled="true">
                 <FieldLabel>
                   <I18nText id="field.done-per-shift-m-pcb.label" />
@@ -265,8 +274,8 @@ export function NewPage() {
                             className="max-h-9 justify-between font-normal"
                             variant="outline"
                           >
+                            <CalendarIcon className="opacity-50" />
                             {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
-                            <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent align="start" className="w-auto p-0">
@@ -323,8 +332,8 @@ export function NewPage() {
                             className="max-h-9 justify-between font-normal"
                             variant="outline"
                           >
+                            <CalendarIcon className="opacity-50" />
                             {field.value ? field.value.toLocaleDateString() : t('field.datepicker.placeholder')}
-                            <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent align="start" className="w-auto p-0">

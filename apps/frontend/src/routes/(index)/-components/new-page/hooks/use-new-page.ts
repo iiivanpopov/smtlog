@@ -37,6 +37,7 @@ export function useNewPage() {
   const boardsSelect = useDisclosure()
   const dateStartPicker = useDisclosure()
   const dateEndPicker = useDisclosure()
+  const smtLinesModal = useDisclosure()
 
   const createSMTLineMutation = useCreateSMTLineMutation()
 
@@ -64,6 +65,9 @@ export function useNewPage() {
       donePerShiftMPcb,
       donePerShiftPcb,
       boards: dictionaryQuery.data?.data?.boards ?? [],
+    },
+    features: {
+      smtLinesModal,
     },
     mutations: {
       createSMTLine: createSMTLineMutation,
