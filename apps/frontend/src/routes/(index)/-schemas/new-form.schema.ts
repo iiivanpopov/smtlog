@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { timeToMS } from '@/lib'
 
 export const NewFormSchema = z.object({
   board: z.string().nonempty('validation.non-empty'),
@@ -11,12 +12,44 @@ export const NewFormSchema = z.object({
     date: z.date().nullable().refine(val => val !== null, 'validation.non-empty'),
     time: z.string().nonempty('validation.non-empty'),
   }),
-  firstMPcb: z.coerce.number().int().min(1),
-  firstPcb: z.coerce.number().int().min(1),
-  lastMPcb: z.coerce.number().int().min(1),
-  lastPcb: z.coerce.number().int().min(1),
+  firstMPcb: z.coerce.number().min(1, 'validation.non-empty'),
+  firstPcb: z.coerce.number().min(1, 'validation.non-empty'),
+  lastMPcb: z.coerce.number().min(1, 'validation.non-empty'),
+  lastPcb: z.coerce.number().min(1, 'validation.non-empty'),
   pcbSide: z.enum(['T', 'B']),
-  segmentsCount: z.coerce.number().int().min(1),
+  segmentsCount: z.coerce.number().min(1, 'validation.non-empty'),
+}).superRefine((value, ctx) => {
+  if (value.lastMPcb - value.firstMPcb + 1 <= 0) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'validation.last-m-pcb-must-be-greater',
+      path: ['lastMPcb'],
+    })
+  }
+
+  if (value.lastPcb - value.firstPcb + value.segmentsCount <= 0) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'validation.last-pcb-invalid-range',
+      path: ['lastPcb'],
+    })
+  }
+
+  const timeStart = (value.timestampStart?.date?.getTime() ?? 0) + timeToMS(value.timestampStart.time)
+  const timeEnd = (value.timestampEnd?.date?.getTime() ?? 0) + timeToMS(value.timestampEnd.time)
+
+  if (timeStart > 0 && timeEnd > 0 && timeEnd <= timeStart) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'validation.end-time-must-be-after-start',
+      path: ['timestampEnd', 'date'],
+    })
+    ctx.addIssue({
+      code: 'custom',
+      message: 'validation.end-time-must-be-after-start',
+      path: ['timestampEnd', 'time'],
+    })
+  }
 })
 
 export type NewFormData = z.infer<typeof NewFormSchema>
