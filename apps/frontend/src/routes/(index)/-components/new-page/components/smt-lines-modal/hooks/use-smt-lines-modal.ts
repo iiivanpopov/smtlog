@@ -44,7 +44,7 @@ export function useSMTLinesModal() {
     side: debouncedSummaryFilters.side as 'T' | 'B',
     pcb: debouncedSummaryFilters.pcb,
     dateRangeFrom: debouncedSummaryFilters.dateRange.from?.getTime() ?? 0,
-    dateRangeTo: debouncedSummaryFilters.dateRange.to?.getTime() ?? 0,
+    dateRangeTo: (debouncedSummaryFilters.dateRange.to?.getTime() ?? 0) + 24 * 60 * 60 * 1000,
   }, {
     options: {
       enabled: !!debouncedSummaryFilters.pcb

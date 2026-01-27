@@ -1,6 +1,6 @@
 import type { CreateSMTLineData, GetSMTLinesData } from './schemas'
 import type { GetSMTLinesSummaryData } from './schemas/get-smt-lines-summary.schema'
-import { and, count, desc, eq, gt, gte, lte } from 'drizzle-orm'
+import { and, count, desc, eq, gt, gte, lt } from 'drizzle-orm'
 import { db, smtLinesTable } from '@/database'
 
 export function getSMTLines(userId: number, payload: GetSMTLinesData) {
@@ -51,7 +51,7 @@ export function getSMTLinesSummary(payload: GetSMTLinesSummaryData) {
     .where(
       and(
         gte(smtLinesTable.timeStart, payload.dateRangeFrom),
-        lte(smtLinesTable.timeEnd, payload.dateRangeTo),
+        lt(smtLinesTable.timeEnd, payload.dateRangeTo),
         eq(smtLinesTable.board, payload.pcb),
         eq(smtLinesTable.pcbSide, payload.side),
       ),
